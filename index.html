@@ -296,6 +296,7 @@
     .hero-title span {
       background: linear-gradient(to right, #f97316, #fb923c, #facc15);
       -webkit-background-clip: text;
+      background-clip: text;
       color: transparent;
     }
 
@@ -936,20 +937,256 @@
     }
 
     @media (max-width: 640px) {
+      /* Navigation mobile fixes */
       .nav-actions .pill {
         display: none;
       }
 
+      .nav-actions {
+        gap: 8px;
+      }
+
+      .btn {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+        min-height: 44px;
+      }
+
+      .logo-text-main {
+        font-size: 0.9rem;
+      }
+
+      .logo-text-sub {
+        font-size: 0.72rem;
+      }
+
+      /* Hero section mobile fixes */
+      .hero {
+        padding: 24px 0 40px;
+      }
+
       .hero-title {
-        font-size: 2.2rem;
+        font-size: clamp(1.8rem, 8vw, 2.2rem);
+        margin-bottom: 12px;
+      }
+
+      .hero-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 16px;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .hero-ctas .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero-kicker {
+        font-size: 0.72rem;
+        padding: 3px 8px 3px 5px;
+        gap: 6px;
+      }
+
+      .hero-kicker span {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+      }
+
+      .hero-media-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .hero-badges-row {
+        width: 100%;
+      }
+
+      .bands-overlay {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 14px;
+      }
+
+      .bands-chip-row {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .bands-chip {
+        font-size: 0.65rem;
+        padding: 3px 7px;
+      }
+
+      .bands-strip {
+        position: static;
+        transform: none;
+        margin-top: 8px;
+        align-self: flex-start;
+      }
+
+      .bands-collage-grid {
+        height: 280px;
+      }
+
+      /* Image grids mobile fixes */
+      .image-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      .mock-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      /* Typography mobile adjustments */
+      .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+      }
+
+      .section-intro {
+        font-size: 0.92rem;
+      }
+
+      .section-header-center {
+        margin-bottom: 24px;
+      }
+
+      .waitlist-header h2 {
+        font-size: 1.5rem;
+      }
+
+      .waitlist-header p {
+        font-size: 0.9rem;
+      }
+
+      /* Spacing mobile improvements */
+      .container {
+        padding: 0 20px;
       }
 
       .section {
-        padding: 60px 0;
+        padding: 50px 0;
       }
 
+      .hero-grid,
+      .split,
+      .feature-split {
+        gap: 24px;
+      }
+
+      .cards-3 {
+        gap: 14px;
+        margin-top: 20px;
+      }
+
+      .future-proof {
+        gap: 14px;
+        margin-top: 20px;
+      }
+
+      /* Form mobile optimization */
       .waitlist-form {
-        padding: 16px 14px;
+        padding: 18px 16px;
+      }
+
+      .form-grid {
+        gap: 12px;
+      }
+
+      .form-row {
+        font-size: 0.82rem;
+      }
+
+      .form-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .form-footer .btn {
+        width: 100%;
+        order: 1;
+      }
+
+      .form-footnote {
+        order: 2;
+        max-width: 100%;
+        font-size: 0.75rem;
+      }
+
+      .tagline-soft {
+        order: 3;
+        text-align: center;
+        font-size: 0.72rem;
+      }
+
+      .consent {
+        font-size: 0.75rem;
+        gap: 6px;
+      }
+
+      input,
+      textarea {
+        font-size: 0.88rem;
+        padding: 10px 12px;
+        min-height: 44px;
+      }
+
+      textarea {
+        min-height: 100px;
+      }
+
+      /* Footer mobile layout */
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+      }
+
+      footer {
+        padding: 16px 0 18px;
+        font-size: 0.78rem;
+      }
+
+      /* Prevent horizontal scroll */
+      body {
+        overflow-x: hidden;
+      }
+
+      * {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .hero-title {
+        font-size: 1.7rem;
+      }
+
+      .section-title {
+        font-size: 1.35rem;
+      }
+
+      .bands-collage-grid {
+        height: 240px;
       }
     }
   </style>
