@@ -30,8 +30,8 @@
   <meta name="twitter:image:alt" content="Banda cover tocando em um bar lotado">
 
   <!-- Favicons -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="apple-touch-icon" href="/favicon.icon">
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="./favicon.icon">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -817,6 +817,64 @@
       font-size: 0.75rem;
     }
 
+    .form-message {
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-message.success {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      color: #86efac;
+    }
+
+    .form-message.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+    }
+
+    .form-message.loading {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      color: #93c5fd;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .btn.loading {
+      position: relative;
+      color: transparent;
+    }
+
+    .btn.loading::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      margin-left: -8px;
+      margin-top: -8px;
+      border: 2px solid rgba(2, 6, 23, 0.3);
+      border-top-color: #020617;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     /* FAQ e rodapé */
 
     .faq {
@@ -1482,7 +1540,8 @@
               </p>
             </div>
 
-            <form action="/bands_interest" method="post" class="waitlist-form">
+            <form id="bands-form" class="waitlist-form">
+              <div id="form-message" class="form-message" style="display: none;"></div>
               <div class="form-grid">
                 <div class="form-row">
                   <label for="band_name">Nome da banda *</label>
@@ -1603,6 +1662,154 @@
       </div>
     </footer>
   </div>
+
+  <script>
+    // Configuração: Substitua pela URL do seu Google Apps Script Web App
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxrervv8V87M5ZBrhvci6BZVl--7sByJuoX4CAbHeg9xVAhl6Au6rsh0zU3_2dKlKuL/exec';
+
+    // Aguardar o DOM estar pronto
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('bands-form');
+      const formMessage = document.getElementById('form-message');
+
+      if (!form) {
+        console.error('Formulário não encontrado!');
+        return;
+      }
+
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      if (!formMessage) {
+        console.error('Elemento de mensagem não encontrado!');
+        return;
+      }
+
+      function showMessage(text, type) {
+        if (formMessage) {
+          formMessage.textContent = text;
+          formMessage.className = `form-message ${type}`;
+          formMessage.style.display = 'flex';
+
+          if (type === 'success') {
+            formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      }
+
+      function hideMessage() {
+        if (formMessage) {
+          formMessage.style.display = 'none';
+        }
+      }
+
+      function setLoading(loading) {
+        if (submitButton) {
+          if (loading) {
+            submitButton.disabled = true;
+            submitButton.classList.add('loading');
+            submitButton.textContent = 'Enviando...';
+          } else {
+            submitButton.disabled = false;
+            submitButton.classList.remove('loading');
+            submitButton.textContent = 'Entrar na lista de espera';
+          }
+        }
+      }
+
+      function validateForm() {
+        // Validação manual dos campos obrigatórios
+        const requiredFields = form.querySelectorAll('[required]');
+        let isValid = true;
+
+        requiredFields.forEach(field => {
+          if (!field.value.trim()) {
+            isValid = false;
+            field.reportValidity();
+          }
+        });
+
+        // Verificar checkbox de consentimento
+        const consentCheckbox = form.querySelector('#lgpd_consent');
+        if (consentCheckbox && !consentCheckbox.checked) {
+          isValid = false;
+          consentCheckbox.reportValidity();
+        }
+
+        return isValid;
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hideMessage();
+
+        // Usar e.target que é garantidamente o formulário que disparou o evento
+        const targetForm = e.target;
+
+        // Verificar se é realmente um formulário
+        if (!targetForm || targetForm.tagName !== 'FORM') {
+          showMessage('Erro: Elemento do formulário inválido.', 'error');
+          return;
+        }
+
+        // Validação básica
+        if (!validateForm()) {
+          return;
+        }
+
+        // Coletar dados do formulário usando e.target
+        const formData = new FormData(targetForm);
+      const data = {
+        band_name: formData.get('band_name'),
+        city: formData.get('city'),
+        instagram: formData.get('instagram'),
+        whatsapp: formData.get('whatsapp'),
+        youtube: formData.get('youtube') || '',
+        styles: formData.get('styles') || '',
+        contact_name: formData.get('contact_name'),
+        email: formData.get('email'),
+        extra: formData.get('extra') || '',
+        lgpd_consent: formData.get('lgpd_consent') ? 'Sim' : 'Não'
+      };
+
+      setLoading(true);
+      showMessage('Enviando seus dados...', 'loading');
+
+      try {
+        // Usar form-urlencoded para evitar preflight CORS
+        // Google Apps Script funciona melhor com esta abordagem
+        const formBody = Object.keys(data)
+          .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+          .join('&');
+
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Necessário para Google Apps Script
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: formBody
+        });
+
+        // Com mode: 'no-cors', não podemos ler a resposta, mas assumimos sucesso
+        // O Google Apps Script processará os dados e salvará na planilha
+        // Se houver erro, o usuário não verá, mas os dados serão salvos se tudo estiver OK
+        showMessage('Obrigado! Seus dados foram enviados com sucesso. Entraremos em contato em breve.', 'success');
+        targetForm.reset();
+
+        // Scroll para a mensagem de sucesso
+        setTimeout(() => {
+          formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+
+      } catch (error) {
+        console.error('Erro ao enviar formulário:', error);
+        showMessage('Erro ao enviar formulário. Por favor, tente novamente ou entre em contato diretamente em contato@bandalocal.com', 'error');
+      } finally {
+        setLoading(false);
+      }
+      });
+    });
+  </script>
 </body>
 
 </html>
