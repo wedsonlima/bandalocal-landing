@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title>BandaLocal - A nova casa das bandas cover do Brasil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="BandaLocal é a plataforma que conecta bandas cover, bares e fãs com perfis profissionais, agenda pública e leads qualificados. Entre na lista de espera.">
+  <meta name="author" content="BandaLocal">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="BandaLocal - A nova casa das bandas cover do Brasil">
+  <meta property="og:description"
+    content="Conecte sua banda cover a bares, eventos e fãs com uma plataforma feita para lotar agendas. Entre na lista de espera.">
+  <meta property="og:image" content="https://bandalocal.com/og-image.jpg">
+  <meta property="og:url" content="https://bandalocal.com">
+  <meta property="og:site_name" content="BandaLocal">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image:alt" content="Banda cover tocando em um bar lotado">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <style>
+    :root {
+      --bg: #020014;
+      --bg-alt: #050414;
+      --bg-soft: #070720;
+      --primary: #f97316;
+      --primary-soft: rgba(249, 115, 22, 0.18);
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.18);
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #111827;
+      --max-width: 1180px;
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 30px 80px rgba(0, 0, 0, 0.85);
+      --section-space: 80px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background:
+        radial-gradient(circle at top, #111827 0, #020014 40%, #000 100%),
+        radial-gradient(circle at bottom left, #0f172a 0, #020014 60%, #000 100%);
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(20px);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.82), transparent);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.88);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background:
+        conic-gradient(from 210deg, #f97316, #f97316, #facc15, #38bdf8, #a855f7, #f97316);
+      position: relative;
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.9);
+      overflow: hidden;
+    }
+
+    .logo-mark::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 30% 20%, #fbbf24, #111827 70%);
+      mix-blend-mode: multiply;
+    }
+
+    .logo-lines {
+      position: absolute;
+      inset: 8px 6px;
+      border-radius: 999px;
+      border: 2px solid rgba(15, 23, 42, 0.95);
+      border-top: none;
+      border-bottom: none;
+    }
+
+    .logo-text-main {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-size: 0.98rem;
+      text-transform: uppercase;
+    }
+
+    .logo-text-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    .pill {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 4px 10px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-pill);
+      padding: 10px 18px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      font-size: 0.9rem;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, #f97316, #facc15);
+      color: #020617;
+      box-shadow: 0 14px 40px rgba(249, 115, 22, 0.6);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 55px rgba(249, 115, 22, 0.9);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 1);
+      color: var(--text);
+    }
+
+    /* Hero moderno com colagem */
+
+    .hero {
+      padding: 32px 0 52px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .hero-kicker {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px 4px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      margin-bottom: 10px;
+    }
+
+    .hero-kicker span {
+      background: rgba(56, 189, 248, 0.16);
+      border-radius: 999px;
+      padding: 2px 8px;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      color: #e0f2fe;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 0.7rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.6rem, 3.1vw, 3.2rem);
+      line-height: 1.03;
+      margin: 0 0 14px;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #f97316, #fb923c, #facc15);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 32rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .hero-footnote {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .hero-footnote strong {
+      color: #e5e7eb;
+    }
+
+    /* Banner de colagem de bandas */
+
+    .hero-media-shell {
+      border-radius: var(--radius-xl);
+      padding: 14px;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.2), transparent 55%),
+        rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero-media-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at 10% 0, rgba(248, 250, 252, 0.05), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .bands-collage {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #020617, #020014);
+      border: 1px solid rgba(30, 64, 175, 0.7);
+    }
+
+    .bands-collage-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 4px;
+      height: 320px;
+    }
+
+    .bands-cell {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bands-main {
+      grid-row: 1 / 3;
+      border-radius: 18px 0 0 18px;
+    }
+
+    .bands-main::before,
+    .bands-cell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-position: center;
+      background-size: cover;
+      filter: saturate(1.15) contrast(1.08);
+    }
+
+    /* Troque as imagens abaixo pelas fotos IA reais */
+    .bands-main::before {
+      background-image: url("/images/collage-band-main.jpg");
+    }
+
+    .bands-top-right::before {
+      background-image: url("/images/collage-band-top-right.jpg");
+    }
+
+    .bands-bottom-left::before {
+      background-image: url("/images/collage-band-bottom-left.jpg");
+    }
+
+    .bands-bottom-right::before {
+      background-image: url("/images/collage-band-bottom-right.jpg");
+    }
+
+    .bands-overlay {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      background: linear-gradient(to top, rgba(3, 7, 18, 0.95), transparent);
+      color: var(--text-muted);
+    }
+
+    .bands-overlay strong {
+      color: #e5e7eb;
+    }
+
+    .bands-chip-row {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .bands-chip {
+      pointer-events: auto;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bands-chip span {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+    }
+
+    .bands-strip {
+      position: absolute;
+      inset: auto 18px 18px auto;
+      transform: rotate(-3deg);
+      transform-origin: right bottom;
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 999px;
+      border: 1px dashed rgba(251, 191, 36, 0.8);
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #facc15;
+    }
+
+    .bands-strip-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: #f97316;
+      box-shadow: 0 0 8px rgba(249, 115, 22, 0.9);
+    }
+
+    .hero-media-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hero-media-footer strong {
+      color: #e5e7eb;
+    }
+
+    .hero-badges-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hero-badge {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* Seções genéricas */
+
+    .section {
+      padding: var(--section-space) 0;
+    }
+
+    .section-dark {
+      background: radial-gradient(circle at top, #020617, #020014);
+      border-top: 1px solid rgba(15, 23, 42, 0.98);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.98);
+    }
+
+    .section-soft {
+      background: radial-gradient(circle at top, #020617, #020014);
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .section-header-center {
+      text-align: center;
+      max-width: 42rem;
+      margin: 0 auto 32px;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+    }
+
+    .section-intro {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .section p {
+      margin-top: 0;
+    }
+
+    .section p+p {
+      margin-top: 8px;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .image-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: #020617;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+
+    .image-tag {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.7rem;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      padding: 16px 16px 18px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.85);
+      font-size: 0.9rem;
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--text-muted);
+    }
+
+    .center {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .feature-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 26px;
+      align-items: center;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .feature-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .feature-list li::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      margin-top: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #f97316, #facc15);
+      box-shadow: 0 0 10px rgba(249, 115, 22, 0.9);
+      flex-shrink: 0;
+    }
+
+    .feature-list strong {
+      color: #e5e7eb;
+    }
+
+    .mock-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .mock-thumb {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: #020617;
+      aspect-ratio: 4 / 3;
+      position: relative;
+    }
+
+    .mock-thumb span {
+      position: absolute;
+      bottom: 6px;
+      left: 6px;
+      right: 6px;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .future-proof {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .future-proof h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .future-proof p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Form */
+
+    .waitlist {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .waitlist-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .waitlist-header h2 {
+      margin: 0 0 8px;
+      font-size: 1.8rem;
+      letter-spacing: -0.03em;
+    }
+
+    .waitlist-header p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .waitlist-form {
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top, #020617, #020014);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      box-shadow: var(--shadow-soft);
+      padding: 22px 18px 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px 16px;
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+
+    .form-row-full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: #e5e7eb;
+    }
+
+    input,
+    textarea {
+      border-radius: 11px;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 9px 10px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #6b7280;
+      font-size: 0.82rem;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(249, 115, 22, 0.9);
+      box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.8);
+      background: #020617;
+    }
+
+    textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
+    .consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .consent input[type="checkbox"] {
+      margin-top: 3px;
+      width: 14px;
+      height: 14px;
+    }
+
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .form-footnote {
+      max-width: 360px;
+    }
+
+    .tagline-soft {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+      font-size: 0.75rem;
+    }
+
+    /* FAQ e rodapé */
+
+    .faq {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .faq h2 {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+
+    details {
+      margin-bottom: 8px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 500;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "▾";
+      float: right;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    details[open] summary::after {
+      content: "▴";
+    }
+
+    details p {
+      margin: 6px 0 0;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    footer {
+      border-top: 1px solid rgba(15, 23, 42, 0.98);
+      padding: 18px 0 20px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: #020617;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* Responsive */
+
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-media-shell {
+        margin-top: 10px;
+      }
+    }
+
+    @media (max-width: 900px) {
+
+      .split,
+      .feature-split,
+      .future-proof {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .cards-3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .form-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .bands-collage-grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        height: 360px;
+      }
+
+      .bands-main {
+        grid-row: 1 / 2;
+        border-radius: 18px 18px 0 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-actions .pill {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 2.2rem;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .waitlist-form {
+        padding: 16px 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header>
+      <div class="container">
+        <nav class="nav">
+          <div class="logo">
+            <div class="logo-mark">
+              <div class="logo-lines"></div>
+            </div>
+            <div>
+              <div class="logo-text-main">BandaLocal</div>
+              <div class="logo-text-sub">A rede das bandas cover</div>
+            </div>
+          </div>
+          <div class="nav-actions">
+            <div class="pill">
+              <span class="pill-dot"></span>
+              Foco inicial: SP &amp; RJ
+            </div>
+            <a href="#bands-form" class="btn btn-ghost">Sou banda cover</a>
+            <a href="#bands-form" class="btn btn-primary">Entrar na lista</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero com colagem -->
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="hero-kicker">
+              Lançamento em breve
+              <span>Early access para bandas cover</span>
+            </div>
+            <h1 class="hero-title">
+              A nova casa das <span>bandas cover</span> do Brasil
+            </h1>
+            <p class="hero-subtitle">
+              Uma plataforma feita para lotar agendas de bandas cover e tributos,
+              conectando bares, eventos e fãs em um só lugar - com perfis profissionais,
+              agenda pública e leads organizados.
+            </p>
+            <div class="hero-ctas">
+              <a href="#bands-form" class="btn btn-primary">
+                Quero cadastrar minha banda
+              </a>
+              <a href="#como-funciona" class="btn btn-ghost">
+                Ver como vai funcionar
+              </a>
+            </div>
+            <p class="hero-footnote">
+              Pensado para quem toca <strong>Guns, Legião, Rush, Metallica, Pop 80s</strong>
+              e tudo que lota bar em SP, RJ e outras capitais brasileiras.
+            </p>
+          </div>
+
+          <div class="hero-media-shell">
+            <div class="bands-collage">
+              <div class="bands-collage-grid">
+                <div class="bands-cell bands-main">
+                  <!-- Imagem IA principal: palco pequeno, bar lotado, banda cover -->
+                </div>
+                <div class="bands-cell bands-top-right">
+                  <!-- Imagem IA: banda em festival pequeno ao ar livre -->
+                </div>
+                <div class="bands-cell bands-bottom-left">
+                  <!-- Imagem IA: banda cover em casamento -->
+                </div>
+                <div class="bands-cell bands-bottom-right">
+                  <!-- Imagem IA: detalhe do público cantando junto -->
+                </div>
+              </div>
+              <div class="bands-chip-row">
+                <div class="bands-chip">
+                  <span></span>
+                  Noites de covers em SP &amp; RJ
+                </div>
+                <div class="bands-chip">
+                  <span></span>
+                  Tributos que lotam casas de show
+                </div>
+              </div>
+              <div class="bands-overlay">
+                <div>
+                  <strong>Uma colagem da cena cover brasileira.</strong><br>
+                  Em breve, todas essas bandas conectadas em um só lugar.
+                </div>
+                <div class="bands-strip">
+                  <span class="bands-strip-dot"></span>
+                  Pré-lançamento para bandas cover
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-media-footer">
+              <div>
+                <strong>Começamos pela rota dos covers.</strong> Bares, casas de show,
+                casamentos e eventos particulares que vivem de tributos.
+              </div>
+              <div class="hero-badges-row">
+                <div class="hero-badge">Perfis profissionais</div>
+                <div class="hero-badge">Agenda pública</div>
+                <div class="hero-badge">Leads organizados</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cena / Problema -->
+      <section class="section section-dark">
+        <div class="container split">
+          <div>
+            <h2 class="section-title">A cena cover é gigante. A visibilidade ainda não.</h2>
+            <p>
+              Todo fim de semana, bandas cover incríveis tocam em bares, casas de show,
+              casamentos e eventos corporativos - mas quase ninguém sabe onde encontrar
+              essa agenda de forma centralizada.
+            </p>
+            <p>
+              Fãs descobrem shows tarde demais, contratantes perdem horas no WhatsApp
+              caçando lineup confiável e disponibilidade, e bandas ficam reféns de
+              stories e indicações soltas.
+            </p>
+            <p>
+              O resultado: agendas vazias para bandas boas, noites fracas em venues
+              e uma cena cover que rende menos do que poderia.
+            </p>
+          </div>
+          <div class="image-grid">
+            <div class="image-card">
+              <!-- IA: bar quase vazio -->
+              <img src="/images/bar-empty.jpg" alt="Bar quase vazio com palco montado para show">
+              <div class="image-tag">Quando o show é bom, mas ninguém ficou sabendo</div>
+            </div>
+            <div class="image-card">
+              <!-- IA: bar lotado -->
+              <img src="/images/bar-full-cover-band.jpg" alt="Bar lotado com banda cover animando o público">
+              <div class="image-tag">O potencial da cena cover quando a informação chega nas pessoas certas</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Visão / Proposta -->
+      <section id="como-funciona" class="section section-soft">
+        <div class="container">
+          <div class="section-header-center">
+            <h2 class="section-title">Um palco digital para bandas cover, venues e fãs</h2>
+            <p class="section-intro">
+              O BandaLocal será o hub onde bandas, casas de show e público se encontram:
+              perfis profissionais, agenda pública, mapa de shows e leads qualificados,
+              focado em shows reais e contratos fechados - não em likes vazios.
+            </p>
+          </div>
+
+          <div class="cards-3">
+            <article class="card">
+              <h3>Para bandas cover</h3>
+              <p>
+                Perfil completo com vídeos, fotos, bio, lineup, setlists e agenda pública.
+                Receba pedidos de show com data, tipo de evento e orçamento, tudo organizado.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Para bares e venues</h3>
+              <p>
+                Descubra bandas que lotam a casa, veja histórico de apresentações
+                e destaque a programação da semana para atrair o público certo para cada noite.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Para fãs e contratantes</h3>
+              <p>
+                Encontre covers por cidade, estilo ou data. Siga suas bandas favoritas
+                e receba alertas quando tiver show novo ou datas livres para contratar.
+              </p>
+            </article>
+          </div>
+
+          <div class="center">
+            <a href="#bands-form" class="btn btn-primary">
+              Quero estar no lançamento
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Como vai ser (com mais fotos/mockups) -->
+      <section class="section section-dark">
+        <div class="container">
+          <div class="section-header-center">
+            <h2 class="section-title">Como vai funcionar na prática</h2>
+            <p class="section-intro">
+              A ideia é simples: dar para a sua banda cover o mesmo nível de organização
+              de um artista grande, com ferramentas pensadas para a realidade de bares
+              e eventos brasileiros.
+            </p>
+          </div>
+
+          <div class="feature-split">
+            <div>
+              <ul class="feature-list">
+                <li>
+                  <strong>Perfil de banda:</strong> vídeos HD, fotos, bio, setlists,
+                  lineup atual e links principais em uma página só, fácil de mandar
+                  para qualquer contratante.
+                </li>
+                <li>
+                  <strong>Agenda pública:</strong> mostre datas fechadas e disponíveis,
+                  com visual por mês e filtros por cidade, ajudando a lotar a semana.
+                </li>
+                <li>
+                  <strong>Leads organizados:</strong> pedidos de show com data, tipo
+                  de evento, local, público estimado e orçamento, sem perder nada
+                  em meio ao fluxo do WhatsApp.
+                </li>
+                <li>
+                  <strong>Insights futuros:</strong> analytics que mostram quais
+                  estilos e cidades estão com mais demanda para a sua banda.
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="mock-row">
+                <div class="mock-thumb">
+                  <!-- IA: mock mobile perfil -->
+                  <img src="/images/mock-profile-mobile.jpg" alt="Mockup de perfil de banda cover no celular">
+                  <span>Perfil da sua banda pronto para mandar no próximo contato</span>
+                </div>
+                <div class="mock-thumb">
+                  <!-- IA: mock desktop agenda -->
+                  <img src="/images/mock-calendar-desktop.jpg" alt="Mockup de agenda de shows no desktop">
+                  <span>Agenda visual com datas fechadas e disponíveis</span>
+                </div>
+                <div class="mock-thumb">
+                  <!-- IA: tela de pedidos -->
+                  <img src="/images/mock-leads-list.jpg" alt="Mockup de lista de pedidos de show">
+                  <span>Pedidos de show organizados por data e tipo de evento</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Expectativa / Early adopters -->
+      <section class="section">
+        <div class="container">
+          <div class="section-header-center">
+            <h2 class="section-title">Começando pela cena que mais respira cover</h2>
+            <p class="section-intro">
+              O foco inicial será em bandas cover e tributos de São Paulo e Rio de Janeiro,
+              com expansão planejada para outras capitais e cidades que vivem de noite ao vivo.
+            </p>
+          </div>
+
+          <div class="future-proof">
+            <div>
+              <h3>Prioridade para bandas early adopters</h3>
+              <p>
+                As bandas que entrarem agora na lista de espera terão prioridade nas
+                primeiras convites para testes, espaço de destaque nos primeiros meses
+                e voz ativa para moldar as próximas funcionalidades.
+              </p>
+            </div>
+            <div>
+              <h3>Parcerias com casas de show</h3>
+              <p>
+                Estamos estruturando parcerias com bares e venues que já vivem de cover,
+                para garantir palco real, público qualificado e dados concretos desde o início.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Waitlist / Form -->
+      <section id="bands-form" class="section section-soft">
+        <div class="container">
+          <div class="waitlist">
+            <div class="waitlist-header">
+              <h2>Quer ser uma das primeiras bandas no BandaLocal?</h2>
+              <p>
+                Se você tem banda cover ou tributo e quer lotar mais datas, deixe seus contatos.
+                Usaremos essa lista para convidar bandas para os testes e para o lançamento.
+              </p>
+            </div>
+
+            <form action="/bands_interest" method="post" class="waitlist-form">
+              <div class="form-grid">
+                <div class="form-row">
+                  <label for="band_name">Nome da banda *</label>
+                  <input type="text" id="band_name" name="band_name" required>
+                </div>
+
+                <div class="form-row">
+                  <label for="city">Cidade / UF *</label>
+                  <input type="text" id="city" name="city" placeholder="São Paulo / SP" required>
+                </div>
+
+                <div class="form-row">
+                  <label for="instagram">Instagram da banda *</label>
+                  <input type="url" id="instagram" name="instagram" placeholder="https://instagram.com/suabanda"
+                    required>
+                </div>
+
+                <div class="form-row">
+                  <label for="whatsapp">WhatsApp para contato *</label>
+                  <input type="tel" id="whatsapp" name="whatsapp" placeholder="+55 11 99999-9999" required>
+                </div>
+
+                <div class="form-row">
+                  <label for="youtube">YouTube (canal ou playlist)</label>
+                  <input type="url" id="youtube" name="youtube" placeholder="https://youtube.com/@suabanda">
+                </div>
+
+                <div class="form-row">
+                  <label for="styles">Quais bandas / estilos vocês tocam?</label>
+                  <input type="text" id="styles" name="styles" placeholder="Metallica, Legião Urbana, Rock 80s">
+                </div>
+
+                <div class="form-row">
+                  <label for="contact_name">Nome da pessoa de contato *</label>
+                  <input type="text" id="contact_name" name="contact_name" required>
+                </div>
+
+                <div class="form-row">
+                  <label for="email">E-mail *</label>
+                  <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-row form-row-full">
+                  <label for="extra">Link de vídeo ao vivo ou observações</label>
+                  <textarea id="extra" name="extra"
+                    placeholder="Cole aqui 1-2 links de vídeos ao vivo, disponibilidade típica, cache médio, etc."></textarea>
+                </div>
+
+                <div class="form-row form-row-full">
+                  <div class="consent">
+                    <input type="checkbox" id="lgpd_consent" name="lgpd_consent" required>
+                    <label for="lgpd_consent">
+                      Autorizo o uso dos meus dados para que o BandaLocal entre em contato sobre a plataforma,
+                      lista de espera e convites para testes, conforme a Política de Privacidade.
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-footer">
+                <button type="submit" class="btn btn-primary">
+                  Entrar na lista de espera
+                </button>
+                <div class="form-footnote">
+                  Seus dados serão usados apenas para contato sobre o BandaLocal e convites para participar dos testes.
+                  Você poderá pedir a exclusão a qualquer momento.
+                </div>
+                <div class="tagline-soft">
+                  Sem spam, sem compromisso. Só queremos saber quem está pronto para tocar mais.
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section">
+        <div class="container faq">
+          <h2>Perguntas rápidas</h2>
+
+          <details>
+            <summary>Quando o BandaLocal será lançado?</summary>
+            <p>
+              Estamos validando o produto com um grupo inicial de bandas e venues.
+              As primeiras convites para testes devem começar nos próximos meses,
+              com abertura gradual conforme a demanda.
+            </p>
+          </details>
+
+          <details>
+            <summary>A lista de espera é paga?</summary>
+            <p>
+              Não. A lista de espera é totalmente gratuita. No futuro, teremos planos
+              gratuitos e Pro para bandas e venues, mas você decide se faz sentido assinar.
+            </p>
+          </details>
+
+          <details>
+            <summary>Meus dados ficarão públicos?</summary>
+            <p>
+              Não. As informações deste formulário servem apenas para contato direto
+              com você sobre o BandaLocal e convites para testes, de acordo com a
+              nossa Política de Privacidade.
+            </p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <div>&copy; 2026 BandaLocal. Todos os direitos reservados.</div>
+        <div class="footer-links">
+          <a href="/privacy">Política de Privacidade</a>
+          <a href="mailto:contato@bandalocal.com">contato@bandalocal.com</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>
