@@ -52,6 +52,7 @@ function doPost(e) {
       // Form-urlencoded: parse manual
       const params = e.parameter;
       data = {
+        tipo: params.tipo || "",
         band_name: params.band_name || "",
         city: params.city || "",
         instagram: params.instagram || "",
@@ -81,6 +82,9 @@ function doPost(e) {
       });
     }
 
+    // Determinar tipo (banda ou venue) - padrão é 'banda' se não especificado
+    const tipo = data.tipo || "banda";
+
     // Abrir ou criar a planilha
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
     let sheet = spreadsheet.getSheetByName(SHEET_NAME);
@@ -90,11 +94,12 @@ function doPost(e) {
       sheet = spreadsheet.insertSheet(SHEET_NAME);
       // Adicionar cabeçalhos
       sheet
-        .getRange(1, 1, 1, 11)
+        .getRange(1, 1, 1, 12)
         .setValues([
           [
             "Data/Hora",
-            "Nome da Banda",
+            "Tipo",
+            "Nome da Banda/Estabelecimento",
             "Cidade/UF",
             "Instagram",
             "WhatsApp",
@@ -107,7 +112,7 @@ function doPost(e) {
           ],
         ]);
       // Formatar cabeçalho
-      const headerRange = sheet.getRange(1, 1, 1, 11);
+      const headerRange = sheet.getRange(1, 1, 1, 12);
       headerRange.setFontWeight("bold");
       headerRange.setBackground("#f97316");
       headerRange.setFontColor("#ffffff");
@@ -124,6 +129,7 @@ function doPost(e) {
     // Preparar linha de dados
     const rowData = [
       formattedDate,
+      tipo,
       data.band_name || "",
       data.city || "",
       data.instagram || "",
@@ -141,7 +147,7 @@ function doPost(e) {
 
     // Formatar a nova linha (opcional)
     const lastRow = sheet.getLastRow();
-    const newRowRange = sheet.getRange(lastRow, 1, 1, 11);
+    const newRowRange = sheet.getRange(lastRow, 1, 1, 12);
     newRowRange.setBorder(true, true, true, true, true, true);
 
     // Retornar sucesso com cabeçalhos CORS
@@ -166,6 +172,7 @@ function doPost(e) {
  */
 function testDoPost() {
   const testData = {
+    tipo: "banda",
     band_name: "Banda Teste",
     city: "São Paulo / SP",
     instagram: "https://instagram.com/teste",

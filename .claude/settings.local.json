@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git --git-dir=/Users/wedsonlima/Projects/bandalocal/landing/.git log --oneline -5)",
+      "Skill(superpowers:brainstorming)",
+      "Bash(mkdir:*)"
+    ]
+  }
+}
