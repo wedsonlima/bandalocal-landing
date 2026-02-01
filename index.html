@@ -1,2439 +1,1649 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-  <meta charset="utf-8">
-  <title>BandaLocal - A plataforma que organiza a música ao vivo local</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description"
-    content="BandaLocal conecta bandas, bares e fãs com perfis profissionais, agenda pública e leads qualificados. Entre na lista de espera.">
-  <meta name="author" content="BandaLocal">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#f97316">
-  <link rel="canonical" href="https://bandalocal.com">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="pt_BR">
-  <meta property="og:title" content="BandaLocal - A plataforma que organiza a música ao vivo local">
-  <meta property="og:description"
-    content="Conecte bandas, bares e fãs com uma plataforma feita para shows reais. Entre na lista de espera.">
-  <meta property="og:image" content="https://bandalocal.com/images/og-image.jpg">
-  <meta property="og:url" content="https://bandalocal.com">
-  <meta property="og:site_name" content="BandaLocal">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="BandaLocal - A plataforma que organiza a música ao vivo local">
-  <meta name="twitter:description"
-    content="Conecte bandas, bares e fãs com perfis profissionais, agenda pública e leads organizados.">
-  <meta name="twitter:image:alt" content="Banda cover tocando em um bar lotado">
-
-  <!-- Favicons -->
-  <link rel="icon" href="./favicon.ico" sizes="any">
-  <link rel="apple-touch-icon" href="./favicon.icon">
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "BandaLocal",
-    "url": "https://bandalocal.com",
-    "logo": "https://bandalocal.com/favicon.svg",
-    "description": "BandaLocal é a plataforma que conecta bandas, bares e fãs com perfis profissionais, agenda pública e leads qualificados.",
-    "sameAs": []
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "BandaLocal",
-    "url": "https://bandalocal.com",
-    "description": "A plataforma que organiza a música ao vivo local. Conecta bandas, bares e fãs com perfis profissionais, agenda pública e leads qualificados.",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://bandalocal.com/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BandaLocal - A rede que conecta a cena musical</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #020014;
-      --bg-alt: #050414;
-      --bg-soft: #070720;
-      --primary: #f97316;
-      --primary-soft: rgba(249, 115, 22, 0.18);
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.18);
-      --text: #f9fafb;
-      --text-muted: #9ca3af;
-      --border: #111827;
-      --max-width: 1180px;
-      --radius-xl: 28px;
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 30px 80px rgba(0, 0, 0, 0.85);
-      --section-space: 80px;
+      --color-sunset: #FF6B35;
+      --color-sunset-light: #FF8C5A;
+      --color-ocean: #0066CC;
+      --color-ocean-light: #0099FF;
+      --color-forest: #2D5016;
+      --color-forest-light: #4A7C23;
+      --color-night: #1A1A2E;
+      --color-night-light: #2D2D44;
+      --color-cream: #FFF8F0;
+      --color-gold: #FFB800;
+      --color-pink: #E91E63;
+      --color-purple: #9C27B0;
     }
 
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      background:
-        radial-gradient(circle at top, #111827 0, #020014 40%, #000 100%),
-        radial-gradient(circle at bottom left, #0f172a 0, #020014 60%, #000 100%);
-      color: var(--text);
+    html {
       scroll-behavior: smooth;
     }
 
     body {
-      line-height: 1.6;
+      font-family: 'Outfit', sans-serif;
+      background: var(--color-night);
+      color: var(--color-cream);
+      overflow-x: hidden;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
+    /* Sound Wave Animation */
+    @keyframes soundWave {
+      0%, 100% { transform: scaleY(0.5); }
+      50% { transform: scaleY(1); }
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
     }
 
-    .page {
-      min-height: 100vh;
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
     }
 
-    .container {
-      width: 100%;
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 16px;
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(60px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      backdrop-filter: blur(20px);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.82), transparent);
-      border-bottom: 1px solid rgba(31, 41, 55, 0.88);
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-60px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 0;
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(60px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
 
-    .logo-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      background:
-        conic-gradient(from 210deg, #f97316, #f97316, #facc15, #38bdf8, #a855f7, #f97316);
-      position: relative;
-      box-shadow: 0 0 20px rgba(249, 115, 22, 0.9);
-      overflow: hidden;
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    .logo-mark::before {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border-radius: 10px;
-      background: radial-gradient(circle at 30% 20%, #fbbf24, #111827 70%);
-      mix-blend-mode: multiply;
-    }
-
-    .logo-lines {
-      position: absolute;
-      inset: 8px 6px;
-      border-radius: 999px;
-      border: 2px solid rgba(15, 23, 42, 0.95);
-      border-top: none;
-      border-bottom: none;
-    }
-
-    .logo-text-main {
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      font-size: 0.98rem;
-      text-transform: uppercase;
-    }
-
-    .logo-text-sub {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.9rem;
-    }
-
-    .pill {
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      padding: 4px 10px;
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(15, 23, 42, 0.85);
-    }
-
-    .pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--radius-pill);
-      padding: 10px 18px;
-      font-weight: 500;
-      cursor: pointer;
-      border: none;
-      font-size: 0.9rem;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: linear-gradient(120deg, #f97316, #facc15);
-      color: #020617;
-      box-shadow: 0 14px 40px rgba(249, 115, 22, 0.6);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 20px 55px rgba(249, 115, 22, 0.9);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: #f97316;
-      border: 2px solid rgba(249, 115, 22, 0.6);
-      box-shadow: none;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(249, 115, 22, 0.1);
-      border-color: #f97316;
-      transform: translateY(-1px);
-      box-shadow: 0 14px 40px rgba(249, 115, 22, 0.4);
-    }
-
-    .btn-ghost {
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-muted);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-    }
-
-    .btn-ghost:hover {
-      background: rgba(15, 23, 42, 1);
-      color: var(--text);
-    }
-
-    /* Hero moderno com colagem */
-
-    .hero {
-      padding: 32px 0 52px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
-      gap: 34px;
-      align-items: center;
-    }
-
-    .hero-kicker {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 10px 4px 6px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      margin-bottom: 10px;
-    }
-
-    .hero-kicker span {
-      background: rgba(56, 189, 248, 0.16);
-      border-radius: 999px;
-      padding: 2px 8px;
-      border: 1px solid rgba(56, 189, 248, 0.5);
-      color: #e0f2fe;
-      text-transform: none;
-      letter-spacing: 0;
-      font-size: 0.7rem;
-    }
-
-    .hero-title {
-      font-size: clamp(2.6rem, 3.1vw, 3.2rem);
-      line-height: 1.03;
-      margin: 0 0 14px;
-      letter-spacing: -0.045em;
-    }
-
-    .hero-title span {
-      background: linear-gradient(to right, #f97316, #fb923c, #facc15);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero-subtitle {
-      font-size: 1rem;
-      color: var(--text-muted);
-      max-width: 32rem;
-      margin-bottom: 18px;
-    }
-
-    .hero-ctas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .hero-ctas-secondary {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .hero-footnote {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .hero-footnote strong {
-      color: #e5e7eb;
-    }
-
-    /* Banner de colagem de bandas */
-
-    .hero-media-shell {
-      border-radius: var(--radius-xl);
-      padding: 14px;
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.2), transparent 55%),
-        rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      isolation: isolate;
-    }
-
-    .hero-media-shell::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: radial-gradient(circle at 10% 0, rgba(248, 250, 252, 0.05), transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .bands-collage {
-      position: relative;
-      border-radius: 22px;
-      overflow: hidden;
-      background: radial-gradient(circle at top, #020617, #020014);
-      border: 1px solid rgba(30, 64, 175, 0.7);
-    }
-
-    .bands-collage-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      grid-template-rows: repeat(2, minmax(0, 1fr));
-      gap: 4px;
-      height: 320px;
-    }
-
-    .bands-cell {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .bands-main {
-      grid-row: 1 / 3;
-      border-radius: 18px 0 0 18px;
-    }
-
-    .bands-main::before,
-    .bands-cell::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-position: center;
-      background-size: cover;
-      filter: saturate(1.15) contrast(1.08);
-    }
-
-    /* Troque as imagens abaixo pelas fotos IA reais */
-    .bands-main::before {
-      background-image: url("./images/bl-collage-band-main.png");
-    }
-
-    .bands-top-right::before {
-      background-image: url("./images/bl-collage-band-top-right.png");
-    }
-
-    .bands-bottom-left::before {
-      background-image: url("./images/bl-collage-band-bottom-left.png");
-    }
-
-    .bands-bottom-right::before {
-      background-image: url("./images/bl-collage-band-bottom-right.png");
-    }
-
-    .bands-overlay {
-      position: absolute;
-      inset: auto 0 0;
-      padding: 10px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.78rem;
-      background: linear-gradient(to top, rgba(3, 7, 18, 0.95), transparent);
-      color: var(--text-muted);
-    }
-
-    .bands-overlay strong {
-      color: #e5e7eb;
-    }
-
-    .bands-chip-row {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      pointer-events: none;
-    }
-
-    .bands-chip {
-      pointer-events: auto;
-      padding: 4px 9px;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: #e5e7eb;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .bands-chip span {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
-    }
-
-    .bands-strip {
-      position: absolute;
-      inset: auto 18px 18px auto;
-      transform: rotate(-3deg);
-      transform-origin: right bottom;
-      background: rgba(15, 23, 42, 0.95);
-      border-radius: 999px;
-      border: 1px dashed rgba(251, 191, 36, 0.8);
-      padding: 4px 10px;
-      font-size: 0.72rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      color: #facc15;
-    }
-
-    .bands-strip-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 999px;
-      background: #f97316;
-      box-shadow: 0 0 8px rgba(249, 115, 22, 0.9);
-    }
-
-    .hero-media-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 12px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .hero-media-footer strong {
-      color: #e5e7eb;
-    }
-
-    .hero-badges-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .hero-badge {
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    /* Seções genéricas */
-
-    .section {
-      padding: var(--section-space) 0;
-    }
-
-    .section-dark {
-      background: radial-gradient(circle at top, #020617, #020014);
-      border-top: 1px solid rgba(15, 23, 42, 0.98);
-      border-bottom: 1px solid rgba(15, 23, 42, 0.98);
-    }
-
-    .section-soft {
-      background: radial-gradient(circle at top, #020617, #020014);
-      border-top: 1px solid rgba(148, 163, 184, 0.2);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-    }
-
-    .section-header-center {
-      text-align: center;
-      max-width: 42rem;
-      margin: 0 auto 32px;
-    }
-
-    .section-title {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      letter-spacing: -0.03em;
-    }
-
-    .section-intro {
-      font-size: 0.98rem;
-      color: var(--text-muted);
-      margin: 0;
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-      gap: 34px;
-      align-items: center;
-    }
-
-    .section p {
-      margin-top: 0;
-    }
-
-    .section p+p {
-      margin-top: 8px;
-    }
-
-    .image-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .image-card {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: #020617;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-      position: relative;
-    }
-
-    .image-tag {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      padding: 4px 10px;
-      border-radius: var(--radius-pill);
-      font-size: 0.7rem;
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-muted);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-
-    .cards-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 26px;
-    }
-
-    .card {
-      border-radius: var(--radius-lg);
-      padding: 16px 16px 18px;
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(55, 65, 81, 0.95);
-      box-shadow: 0 18px 52px rgba(0, 0, 0, 0.85);
-      font-size: 0.9rem;
-    }
-
-    .card h3 {
-      margin: 0 0 6px;
-      font-size: 1rem;
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--text-muted);
-    }
-
-    .center {
-      text-align: center;
-      margin-top: 26px;
-    }
-
-    .feature-split {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 26px;
-      align-items: center;
-    }
-
-    .feature-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .feature-list li {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      margin-bottom: 12px;
-      color: var(--text-muted);
-      font-size: 0.92rem;
-    }
-
-    .feature-list li::before {
-      content: "";
-      width: 9px;
-      height: 9px;
-      margin-top: 6px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #f97316, #facc15);
-      box-shadow: 0 0 10px rgba(249, 115, 22, 0.9);
-      flex-shrink: 0;
-    }
-
-    .feature-list strong {
-      color: #e5e7eb;
-    }
-
-    .mock-row {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .mock-thumb {
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: #020617;
-      aspect-ratio: 4 / 3;
-      position: relative;
-    }
-
-    .mock-thumb span {
-      position: absolute;
-      bottom: 6px;
-      left: 6px;
-      right: 6px;
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-muted);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-
-    .future-proof {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-      margin-top: 24px;
-    }
-
-    .future-proof h3 {
-      margin: 0 0 6px;
-      font-size: 1rem;
-    }
-
-    .future-proof p {
-      margin: 0;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    /* Form */
-
-    .waitlist {
-      max-width: 720px;
-      margin: 0 auto;
-    }
-
-    .waitlist-header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .waitlist-header h2 {
-      margin: 0 0 8px;
-      font-size: 1.8rem;
-      letter-spacing: -0.03em;
-    }
-
-    .waitlist-header p {
-      margin: 0;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .waitlist-form {
-      border-radius: var(--radius-xl);
-      background: radial-gradient(circle at top, #020617, #020014);
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      box-shadow: var(--shadow-soft);
-      padding: 22px 18px 18px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px 16px;
-    }
-
-    .form-row {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 0.85rem;
-    }
-
-    .form-row-full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      color: #e5e7eb;
-    }
-
-    input,
-    textarea {
-      border-radius: 11px;
-      border: 1px solid rgba(55, 65, 81, 0.95);
-      background: rgba(15, 23, 42, 0.98);
-      padding: 9px 10px;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: #6b7280;
-      font-size: 0.82rem;
-    }
-
-    input:focus,
-    textarea:focus {
-      border-color: rgba(249, 115, 22, 0.9);
-      box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.8);
-      background: #020617;
-    }
-
-    textarea {
-      min-height: 88px;
-      resize: vertical;
-    }
-
-    .consent {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .consent input[type="checkbox"] {
-      margin-top: 3px;
-      width: 14px;
-      height: 14px;
-    }
-
-    .form-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 16px;
-      gap: 10px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      flex-wrap: wrap;
-    }
-
-    .form-footnote {
-      max-width: 360px;
-    }
-
-    .tagline-soft {
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      color: #e5e7eb;
-      font-size: 0.75rem;
-    }
-
-    .form-message {
-      padding: 12px 16px;
-      border-radius: var(--radius-md);
-      margin-bottom: 16px;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .form-message.success {
-      background: rgba(34, 197, 94, 0.15);
-      border: 1px solid rgba(34, 197, 94, 0.5);
-      color: #86efac;
-    }
-
-    .form-message.error {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.5);
-      color: #fca5a5;
-    }
-
-    .form-message.loading {
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(56, 189, 248, 0.5);
-      color: #93c5fd;
-    }
-
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none !important;
-    }
-
-    .btn.loading {
-      position: relative;
-      color: transparent;
-    }
-
-    .btn.loading::after {
-      content: "";
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      top: 50%;
-      left: 50%;
-      margin-left: -8px;
-      margin-top: -8px;
-      border: 2px solid rgba(2, 6, 23, 0.3);
-      border-top-color: #020617;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
-
-    @keyframes spin {
+    @keyframes vinylSpin {
+      from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
 
-    /* FAQ e rodapé */
-
-    .faq {
-      max-width: 720px;
-      margin: 0 auto;
+    @keyframes noteFloat {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
     }
 
-    .faq h2 {
-      text-align: left;
-      margin-bottom: 16px;
-    }
-
-    details {
-      margin-bottom: 8px;
-      border-radius: 12px;
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(55, 65, 81, 0.95);
-      padding: 8px 12px;
-      font-size: 0.9rem;
-    }
-
-    summary {
-      cursor: pointer;
-      list-style: none;
-      font-weight: 500;
-    }
-
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    summary::after {
-      content: "▾";
-      float: right;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    details[open] summary::after {
-      content: "▴";
-    }
-
-    details p {
-      margin: 6px 0 0;
-      color: var(--text-muted);
-      font-size: 0.88rem;
-    }
-
-    footer {
-      border-top: 1px solid rgba(15, 23, 42, 0.98);
-      padding: 18px 0 20px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      background: #020617;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      text-decoration: none;
-      color: var(--text-muted);
-    }
-
-    .footer-links a:hover {
-      color: var(--text);
-    }
-
-    /* Responsive */
-
-    /* Flow divider */
-    .flow-divider {
-      padding: 3rem 0;
-      background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(249, 115, 22, 0.03),
-        transparent
-      );
-      border-top: 1px solid rgba(148, 163, 184, 0.1);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-    }
-
-    .flow-divider-content {
+    /* Slide Container */
+    .slide {
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1.5rem;
+      padding: 80px 40px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .flow-divider-line {
-      flex: 1;
-      max-width: 200px;
-      height: 1px;
-      background: linear-gradient(
-        to right,
-        transparent,
-        rgba(249, 115, 22, 0.5),
-        transparent
-      );
+    .slide-content {
+      max-width: 1400px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
     }
 
-    .flow-divider-text {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+    /* Navigation Dots */
+    .nav-dots {
+      position: fixed;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .nav-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-dot:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .nav-dot.active {
+      background: var(--color-sunset);
+      border-color: var(--color-sunset);
+      box-shadow: 0 0 20px var(--color-sunset);
+    }
+
+    /* Floating Music Notes */
+    .music-notes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .note {
+      position: absolute;
+      font-size: 24px;
+      animation: noteFloat 8s linear infinite;
+      opacity: 0;
+    }
+
+    .note:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .note:nth-child(2) { left: 30%; animation-delay: 2s; }
+    .note:nth-child(3) { left: 50%; animation-delay: 4s; }
+    .note:nth-child(4) { left: 70%; animation-delay: 6s; }
+    .note:nth-child(5) { left: 90%; animation-delay: 1s; }
+    .note:nth-child(6) { left: 20%; animation-delay: 3s; }
+    .note:nth-child(7) { left: 80%; animation-delay: 5s; }
+
+    /* Slide 1: Hero */
+    #hero {
+      background: linear-gradient(135deg, var(--color-night) 0%, #2D1B3D 50%, var(--color-night) 100%);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .gradient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: pulse 8s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 600px;
+      height: 600px;
+      background: var(--color-sunset);
+      opacity: 0.3;
+      top: -200px;
+      right: -100px;
+    }
+
+    .orb-2 {
+      width: 500px;
+      height: 500px;
+      background: var(--color-ocean);
+      opacity: 0.2;
+      bottom: -150px;
+      left: -100px;
+      animation-delay: 2s;
+    }
+
+    .orb-3 {
+      width: 400px;
+      height: 400px;
+      background: var(--color-purple);
+      opacity: 0.25;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: 4s;
+    }
+
+    .hero-content {
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: rgba(255, 107, 53, 0.15);
+      border: 1px solid var(--color-sunset);
+      border-radius: 100px;
+      font-size: 14px;
       font-weight: 500;
+      color: var(--color-sunset);
+      margin-bottom: 32px;
+      animation: slideUp 0.8s ease forwards;
     }
 
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--color-sunset);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(48px, 10vw, 120px);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 24px;
+      animation: slideUp 0.8s ease 0.1s forwards;
+      opacity: 0;
+    }
+
+    .hero-title .banda {
+      color: var(--color-sunset);
+      display: block;
+    }
+
+    .hero-title .local {
+      color: var(--color-ocean-light);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 300;
+      color: rgba(255, 248, 240, 0.8);
+      max-width: 700px;
+      margin: 0 auto 48px;
+      animation: slideUp 0.8s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      animation: slideUp 0.8s ease 0.3s forwards;
+      opacity: 0;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--color-gold);
+    }
+
+    .hero-stat-label {
+      font-size: 14px;
+      color: rgba(255, 248, 240, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* Sound Wave Bars */
+    .sound-wave {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      height: 40px;
+      margin-top: 48px;
+      animation: slideUp 0.8s ease 0.4s forwards;
+      opacity: 0;
+    }
+
+    .wave-bar {
+      width: 4px;
+      background: linear-gradient(to top, var(--color-sunset), var(--color-pink));
+      border-radius: 4px;
+      animation: soundWave 1s ease-in-out infinite;
+    }
+
+    .wave-bar:nth-child(1) { animation-delay: 0s; height: 20px; }
+    .wave-bar:nth-child(2) { animation-delay: 0.1s; height: 30px; }
+    .wave-bar:nth-child(3) { animation-delay: 0.2s; height: 40px; }
+    .wave-bar:nth-child(4) { animation-delay: 0.3s; height: 25px; }
+    .wave-bar:nth-child(5) { animation-delay: 0.4s; height: 35px; }
+    .wave-bar:nth-child(6) { animation-delay: 0.5s; height: 20px; }
+    .wave-bar:nth-child(7) { animation-delay: 0.6s; height: 30px; }
+    .wave-bar:nth-child(8) { animation-delay: 0.7s; height: 40px; }
+    .wave-bar:nth-child(9) { animation-delay: 0.8s; height: 25px; }
+    .wave-bar:nth-child(10) { animation-delay: 0.9s; height: 35px; }
+
+    /* Slide 2: Problem */
+    #problem {
+      background: linear-gradient(180deg, var(--color-night) 0%, #1a1a2e 100%);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 60px;
+    }
+
+    .problem-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .problem-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--color-sunset), var(--color-pink));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .problem-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .problem-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-8px);
+    }
+
+    .problem-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(233, 30, 99, 0.2));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 24px;
+    }
+
+    .problem-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--color-cream);
+    }
+
+    .problem-text {
+      font-size: 16px;
+      color: rgba(255, 248, 240, 0.6);
+      line-height: 1.7;
+    }
+
+    /* Slide 3: Solution */
+    #solution {
+      background: var(--color-night);
+      position: relative;
+    }
+
+    .solution-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(0, 102, 204, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+    }
+
+    .section-label {
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: var(--color-sunset);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .section-desc {
+      font-size: 20px;
+      color: rgba(255, 248, 240, 0.7);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .solution-features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 20px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 107, 53, 0.3);
+    }
+
+    .feature-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--color-sunset);
+      opacity: 0.3;
+      line-height: 1;
+    }
+
+    .feature-content h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-content p {
+      font-size: 15px;
+      color: rgba(255, 248, 240, 0.6);
+      line-height: 1.6;
+    }
+
+    /* Slide 4: How It Works */
+    #how-it-works {
+      background: linear-gradient(180deg, var(--color-night) 0%, #1a1a2e 100%);
+    }
+
+    .user-flows {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 60px;
+    }
+
+    .user-flow {
+      text-align: center;
+      position: relative;
+    }
+
+    .user-flow-avatar {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+
+    .avatar-circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .avatar-bands {
+      background: linear-gradient(135deg, var(--color-sunset), var(--color-pink));
+    }
+
+    .avatar-venues {
+      background: linear-gradient(135deg, var(--color-ocean), var(--color-ocean-light));
+    }
+
+    .avatar-fans {
+      background: linear-gradient(135deg, var(--color-forest), var(--color-forest-light));
+    }
+
+    .avatar-glow {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      background: inherit;
+      filter: blur(20px);
+      opacity: 0.5;
+      z-index: 1;
+    }
+
+    .user-flow-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .user-flow-role {
+      font-size: 14px;
+      color: var(--color-sunset);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .user-flow-desc {
+      font-size: 15px;
+      color: rgba(255, 248, 240, 0.6);
+      line-height: 1.6;
+    }
+
+    .user-flow-steps {
+      margin-top: 24px;
+      text-align: left;
+    }
+
+    .flow-step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .step-icon {
+      width: 24px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .step-text {
+      font-size: 14px;
+      color: rgba(255, 248, 240, 0.7);
+    }
+
+    /* Slide 5: Features */
+    #features {
+      background: var(--color-night);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 32px 24px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 107, 53, 0.3);
+    }
+
+    .feature-card:hover::after {
+      opacity: 1;
+    }
+
+    .feature-card-icon {
+      font-size: 36px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .feature-card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .feature-card-desc {
+      font-size: 14px;
+      color: rgba(255, 248, 240, 0.6);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    /* Slide 6: Tech Stack */
+    #tech {
+      background: linear-gradient(180deg, var(--color-night) 0%, #1a1a2e 100%);
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 60px;
+    }
+
+    .tech-column {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 24px;
+      padding: 40px;
+    }
+
+    .tech-column-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tech-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .tech-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .tech-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateX(8px);
+    }
+
+    .tech-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 107, 53, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .tech-info h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .tech-info p {
+      font-size: 13px;
+      color: rgba(255, 248, 240, 0.5);
+    }
+
+    /* Slide 7: Roadmap */
+    #roadmap {
+      background: var(--color-night);
+    }
+
+    .roadmap-timeline {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      margin-top: 60px;
+      overflow-x: auto;
+      padding-bottom: 20px;
+      padding-inline: 4px;
+      /* Hide scrollbar while keeping functionality */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .roadmap-timeline::-webkit-scrollbar {
+      display: none;
+    }
+
+    .roadmap-item {
+      flex-shrink: 0;
+      flex: 1;
+      min-width: 200px;
+      max-width: 260px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 28px 24px;
+      position: relative;
+    }
+
+    .roadmap-item::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      right: -24px;
+      width: 24px;
+      height: 2px;
+      background: rgba(255, 107, 53, 0.3);
+    }
+
+    .roadmap-item:last-child::before {
+      display: none;
+    }
+
+    .roadmap-item.completed {
+      border-color: rgba(74, 124, 35, 0.3);
+    }
+
+    .roadmap-item.completed::before {
+      background: var(--color-forest-light);
+    }
+
+    .roadmap-item.current {
+      border-color: var(--color-sunset);
+      box-shadow: 0 0 40px rgba(255, 107, 53, 0.2);
+    }
+
+    .roadmap-item.current::before {
+      background: var(--color-sunset);
+    }
+
+    .roadmap-phase {
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-sunset);
+      margin-bottom: 12px;
+    }
+
+    .roadmap-item.completed .roadmap-phase {
+      color: var(--color-forest-light);
+    }
+
+    .roadmap-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .roadmap-list {
+      list-style: none;
+    }
+
+    .roadmap-list li {
+      font-size: 14px;
+      color: rgba(255, 248, 240, 0.6);
+      padding: 8px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .roadmap-list li::before {
+      content: '♪';
+      position: absolute;
+      left: 0;
+      color: var(--color-sunset);
+    }
+
+    .roadmap-item.completed .roadmap-list li::before {
+      content: '✓';
+      color: var(--color-forest-light);
+    }
+
+    .roadmap-status {
+      margin-top: 20px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 100px;
+      font-size: 12px;
+      display: inline-block;
+    }
+
+    .roadmap-item.completed .roadmap-status {
+      background: rgba(74, 124, 35, 0.2);
+      color: var(--color-forest-light);
+    }
+
+    .roadmap-item.current .roadmap-status {
+      background: rgba(255, 107, 53, 0.2);
+      color: var(--color-sunset);
+    }
+
+    /* Slide 8: CTA */
+    #cta {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2D1B3D 50%, var(--color-night) 100%);
+      text-align: center;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .cta-title .highlight {
+      background: linear-gradient(90deg, var(--color-sunset), var(--color-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-subtitle {
+      font-size: 20px;
+      color: rgba(255, 248, 240, 0.7);
+      max-width: 600px;
+      margin: 0 auto 48px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      padding: 18px 40px;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cta-btn-primary {
+      background: linear-gradient(135deg, var(--color-sunset), var(--color-pink));
+      color: white;
+      box-shadow: 0 10px 40px rgba(255, 107, 53, 0.4);
+    }
+
+    .cta-btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(255, 107, 53, 0.5);
+    }
+
+    .cta-btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--color-cream);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .cta-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .cta-footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 248, 240, 0.5);
+      font-size: 14px;
+    }
+
+    .vinyl-record {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      opacity: 0.1;
+    }
+
+    .vinyl-left {
+      left: -150px;
+      top: 50%;
+      transform: translateY(-50%);
+      animation: vinylSpin 20s linear infinite;
+    }
+
+    .vinyl-right {
+      right: -150px;
+      top: 50%;
+      transform: translateY(-50%);
+      animation: vinylSpin 15s linear infinite reverse;
+    }
+
+    /* Scroll Animations */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
     @media (max-width: 1024px) {
-      .hero-grid {
-        grid-template-columns: minmax(0, 1fr);
+      .problem-grid,
+      .user-flows,
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .hero-media-shell {
-        margin-top: 10px;
+      .solution-features {
+        grid-template-columns: 1fr;
+      }
+
+      .tech-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .roadmap-timeline {
+        flex-direction: column;
+      }
+
+      .roadmap-item::before {
+        top: auto;
+        bottom: -24px;
+        right: 50%;
+        transform: translateX(50%);
+        width: 2px;
+        height: 24px;
       }
     }
 
-    @media (max-width: 900px) {
-
-      .split,
-      .feature-split,
-      .future-proof {
-        grid-template-columns: minmax(0, 1fr);
+    @media (max-width: 768px) {
+      .slide {
+        padding: 60px 24px;
       }
 
-      .cards-3 {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .form-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .bands-collage-grid {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-rows: repeat(3, minmax(0, 1fr));
-        height: 360px;
-      }
-
-      .bands-main {
-        grid-row: 1 / 2;
-        border-radius: 18px 18px 0 0;
-      }
-    }
-
-    @media (max-width: 640px) {
-      /* Navigation mobile fixes */
-      .nav-actions .pill {
-        display: none;
-      }
-
-      .nav-actions {
-        gap: 8px;
-      }
-
-      .btn {
-        padding: 12px 16px;
-        font-size: 0.85rem;
-        min-height: 44px;
-      }
-
-      .logo-text-main {
-        font-size: 0.9rem;
-      }
-
-      .logo-text-sub {
-        font-size: 0.72rem;
-      }
-
-      /* Hero section mobile fixes */
-      .hero {
-        padding: 24px 0 40px;
-      }
-
-      .hero-title {
-        font-size: clamp(1.8rem, 8vw, 2.2rem);
-        margin-bottom: 12px;
-      }
-
-      .hero-subtitle {
-        font-size: 0.95rem;
-        margin-bottom: 16px;
-      }
-
-      .hero-ctas {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .hero-ctas .btn {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .hero-ctas-secondary {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .hero-ctas-secondary .btn {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .hero-kicker {
-        font-size: 0.72rem;
-        padding: 3px 8px 3px 5px;
-        gap: 6px;
-      }
-
-      .hero-kicker span {
-        font-size: 0.65rem;
-        padding: 2px 6px;
-      }
-
-      .hero-media-footer {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      .hero-badges-row {
-        width: 100%;
-      }
-
-      .bands-overlay {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        padding: 12px 14px;
-      }
-
-      .bands-chip-row {
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-
-      .bands-chip {
-        font-size: 0.65rem;
-        padding: 3px 7px;
-      }
-
-      .bands-strip {
-        position: static;
-        transform: none;
-        margin-top: 8px;
-        align-self: flex-start;
-      }
-
-      .bands-collage-grid {
-        height: 280px;
-      }
-
-      /* Image grids mobile fixes */
-      .image-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 12px;
-      }
-
-      .mock-row {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 12px;
-      }
-
-      /* Typography mobile adjustments */
-      .section-title {
-        font-size: 1.5rem;
-        margin-bottom: 8px;
-      }
-
-      .section-intro {
-        font-size: 0.92rem;
-      }
-
-      .section-header-center {
-        margin-bottom: 24px;
-      }
-
-      .waitlist-header h2 {
-        font-size: 1.5rem;
-      }
-
-      .waitlist-header p {
-        font-size: 0.9rem;
-      }
-
-      /* Spacing mobile improvements */
-      .container {
-        padding: 0 20px;
-      }
-
-      .section {
-        padding: 50px 0;
-      }
-
-      .hero-grid,
-      .split,
-      .feature-split {
+      .hero-stats {
         gap: 24px;
       }
 
-      .cards-3 {
-        gap: 14px;
-        margin-top: 20px;
+      .hero-stat-value {
+        font-size: 36px;
       }
 
-      .future-proof {
-        gap: 14px;
-        margin-top: 20px;
+      .problem-grid,
+      .user-flows,
+      .features-grid {
+        grid-template-columns: 1fr;
       }
 
-      /* Form mobile optimization */
-      .waitlist-form {
-        padding: 18px 16px;
+      .nav-dots {
+        right: 16px;
       }
 
-      .form-grid {
-        gap: 12px;
-      }
-
-      .form-row {
-        font-size: 0.82rem;
-      }
-
-      .form-footer {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-      }
-
-      .form-footer .btn {
-        width: 100%;
-        order: 1;
-      }
-
-      .form-footnote {
-        order: 2;
-        max-width: 100%;
-        font-size: 0.75rem;
-      }
-
-      .tagline-soft {
-        order: 3;
-        text-align: center;
-        font-size: 0.72rem;
-      }
-
-      .consent {
-        font-size: 0.75rem;
-        gap: 6px;
-      }
-
-      input,
-      textarea {
-        font-size: 0.88rem;
+      .keyboard-hint {
+        left: 10px;
+        right: auto;
+        bottom: 10px;
         padding: 10px 12px;
-        min-height: 44px;
-      }
-
-      textarea {
-        min-height: 100px;
-      }
-
-      /* Footer mobile layout */
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      .footer-links {
-        flex-direction: column;
-        gap: 8px;
-        width: 100%;
-      }
-
-      footer {
-        padding: 16px 0 18px;
-        font-size: 0.78rem;
-      }
-
-      /* Prevent horizontal scroll */
-      body {
-        overflow-x: hidden;
-      }
-
-      * {
-        max-width: 100%;
-      }
-
-      .flow-divider-text {
-        font-size: 0.75rem;
+        font-size: 11px;
       }
     }
 
-    @media (max-width: 375px) {
-      .container {
-        padding: 0 16px;
-      }
+    .keyboard-hint {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(26, 26, 46, 0.9);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: rgba(255, 248, 240, 0.6);
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      font-family: 'Outfit', sans-serif;
+    }
 
-      .hero-title {
-        font-size: 1.7rem;
-      }
+    .keyboard-hint:hover {
+      border-color: rgba(255, 107, 53, 0.5);
+      color: rgba(255, 248, 240, 0.8);
+    }
 
-      .section-title {
-        font-size: 1.35rem;
-      }
+    .keyboard-hint-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
 
-      .bands-collage-grid {
-        height: 240px;
-      }
+    .keyboard-hint-header strong {
+      color: var(--color-cream);
+      font-weight: 600;
+    }
+
+    .keyboard-hint-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .keyboard-hint-key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--color-sunset-light);
     }
   </style>
 </head>
-
 <body>
-  <div class="page">
-    <header>
-      <div class="container">
-        <nav class="nav">
-          <div class="logo">
-            <div class="logo-mark">
-              <div class="logo-lines"></div>
-            </div>
-            <div>
-              <div class="logo-text-main">BandaLocal</div>
-              <div class="logo-text-sub">A rede que conecta bandas, bares e fãs</div>
-            </div>
-          </div>
-          <div class="nav-actions">
-            <a href="#bands-hero" class="btn btn-secondary">Para Bandas</a>
-            <a href="#venues-hero" class="btn btn-primary">Para Bares</a>
-          </div>
-        </nav>
-      </div>
-    </header>
-
-    <main>
-      <!-- Hero com colagem -->
-      <section id="bands-hero" class="hero">
-        <div class="container hero-grid">
-          <div>
-            <div class="hero-kicker">
-              Lançamento em breve
-              <span>🚀 Early access para bandas e bares</span>
-            </div>
-            <h1 class="hero-title">
-              A plataforma que organiza a <span>música ao vivo local</span>
-            </h1>
-            <p class="hero-subtitle">
-              A plataforma que organiza a cena de música ao vivo: bandas (covers, autorias, tributos),
-              casas de show, bares e fãs em um só lugar. Perfis profissionais, agenda centralizada,
-              notificações e oportunidades de contratação – tudo pensado para shows reais.
-            </p>
-            <div class="hero-ctas">
-              <a href="#bands-form" class="btn btn-primary">
-                Sou uma banda
-              </a>
-              <a href="#venues-hero" class="btn btn-secondary">
-                Sou bar/local
-              </a>
-            </div>
-            <div class="hero-ctas-secondary">
-              <a href="#bands-como-funciona" class="btn btn-ghost">
-                Ver como vai funcionar
-              </a>
-            </div>
-            <p class="hero-footnote">
-              Pensado para <strong>qualquer banda</strong> que toca shows: Guns, Legião, Rush, Metallica, Pop 80s
-              e tudo que lota bar em SP, RJ, Fortaleza e outras capitais brasileiras.
-            </p>
-          </div>
-
-          <div class="hero-media-shell">
-            <div class="bands-collage">
-              <div class="bands-collage-grid">
-                <div class="bands-cell bands-main">
-                  <!-- Imagem IA principal: palco pequeno, bar lotado, banda cover -->
-                </div>
-                <div class="bands-cell bands-top-right">
-                  <!-- Imagem IA: banda em festival pequeno ao ar livre -->
-                </div>
-                <div class="bands-cell bands-bottom-left">
-                  <!-- Imagem IA: banda cover em casamento -->
-                </div>
-                <div class="bands-cell bands-bottom-right">
-                  <!-- Imagem IA: detalhe do público cantando junto -->
-                </div>
-              </div>
-              <div class="bands-chip-row">
-                <div class="bands-chip">
-                  <span></span>
-                  Noites de covers em SP &amp; RJ
-                </div>
-                <div class="bands-chip">
-                  <span></span>
-                  Tributos que lotam casas de show
-                </div>
-              </div>
-              <div class="bands-overlay">
-                <div>
-                  <strong>Uma colagem da cena cover brasileira.</strong><br>
-                  Em breve, todas essas bandas conectadas em um só lugar.
-                </div>
-                <div class="bands-strip">
-                  <span class="bands-strip-dot"></span>
-                  Pré-lançamento para bandas cover
-                </div>
-              </div>
-            </div>
-
-            <div class="hero-media-footer">
-              <div>
-                <strong>Começamos pela rota dos covers.</strong> Bares, casas de show,
-                casamentos e eventos particulares que vivem de tributos.
-              </div>
-              <div class="hero-badges-row">
-                <div class="hero-badge">Perfis profissionais</div>
-                <div class="hero-badge">Agenda pública</div>
-                <div class="hero-badge">Leads organizados</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Cena / Problema -->
-      <section id="bands-problems" class="section section-dark">
-        <div class="container split">
-          <div>
-            <h2 class="section-title">A cena de música ao vivo é gigante. A visibilidade ainda não.</h2>
-            <p>
-              Todo fim de semana, bandas de qualquer tipo (covers, autorias, tributos,
-              amadores, profissionais) tocam em bares, casas de show, casamentos e
-              eventos corporativos - mas quase ninguém sabe onde encontrar essa agenda
-              de forma centralizada.
-            </p>
-            <p>
-              Fãs descobrem shows tarde demais, contratantes perdem horas no WhatsApp
-              caçando lineup confiável e disponibilidade, e bandas ficam reféns de
-              stories e indicações soltas.
-            </p>
-            <p>
-              O resultado: agendas vazias para bandas boas, noites fracas em venues,
-              bares com programação desconexa e uma cena que rende menos do que poderia.
-            </p>
-          </div>
-          <div class="image-grid">
-            <div class="image-card">
-              <!-- IA: bar quase vazio -->
-              <img src="./images/bl-bar-empty.png" alt="Bar quase vazio com palco montado para show">
-              <div class="image-tag">Quando o show é bom, mas ninguém ficou sabendo</div>
-            </div>
-            <div class="image-card">
-              <!-- IA: bar lotado -->
-              <img src="./images/bl-bar-full-cover-band.png" alt="Bar lotado com banda cover animando o público">
-              <div class="image-tag">O potencial da cena cover quando a informação chega nas pessoas certas</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Visão / Proposta -->
-      <section id="bands-solution" class="section section-soft">
-        <div class="container">
-          <div class="section-header-center">
-            <h2 class="section-title">Um palco digital para bandas, venues e fãs</h2>
-            <p class="section-intro">
-              O BandaLocal será o hub onde bandas, casas de show, bares e público se encontram:
-              perfis profissionais, agenda pública, mapa de shows e leads qualificados,
-              focado em shows reais e contratos fechados.
-            </p>
-          </div>
-
-          <div class="cards-3">
-            <article class="card">
-              <h3>Para bandas cover</h3>
-              <p>
-                Perfil completo com vídeos, fotos, bio, lineup, setlists e agenda pública.
-                Receba pedidos de show com data, tipo de evento e orçamento, tudo organizado.
-              </p>
-            </article>
-            <article class="card">
-              <h3>Para bares e casas de show</h3>
-              <p>
-                Publique sua programação semanal, crie promoções e deixe fãs seguirem
-                seu espaço. Receba notificações por email, push e WhatsApp (no plano Pro).
-                Analytics mostram quais bandas geram mais público e ocupação por dia.
-              </p>
-            </article>
-            <article class="card">
-              <h3>Para fãs e contratantes</h3>
-              <p>
-                Encontre bandas por cidade, estilo ou data usando nosso mapa interativo.
-                Siga bandas e bares favoritos. Receba notificações sobre shows e promoções.
-                Para contratantes: envie leads simples e negocie direto via chat integrado.
-              </p>
-            </article>
-          </div>
-
-          <div class="center">
-            <a href="#bands-form" class="btn btn-primary">
-              Quero estar no lançamento
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Como vai ser (com mais fotos/mockups) -->
-      <section id="bands-como-funciona" class="section section-dark">
-        <div class="container">
-          <div class="section-header-center">
-            <h2 class="section-title">Como vai funcionar na prática</h2>
-            <p class="section-intro">
-              A ideia é simples: dar para a sua banda cover o mesmo nível de organização
-              de um artista grande, com ferramentas pensadas para a realidade de bares
-              e eventos brasileiros.
-            </p>
-          </div>
-
-          <div class="feature-split">
-            <div>
-              <ul class="feature-list">
-                <li>
-                  <strong>Perfil de banda:</strong> vídeos HD, fotos, bio, setlists,
-                  lineup atual e links principais em uma página só, fácil de mandar
-                  para qualquer contratante.
-                </li>
-                <li>
-                  <strong>Agenda pública:</strong> mostre datas fechadas e disponíveis,
-                  com visual por mês e filtros por cidade, ajudando a lotar a semana.
-                </li>
-                <li>
-                  <strong>Leads organizados:</strong> pedidos de show com data, tipo
-                  de evento, local, público estimado e orçamento, sem perder nada
-                  em meio ao fluxo do WhatsApp.
-                </li>
-                <li>
-                  <strong>Insights futuros:</strong> analytics que mostram quais
-                  estilos e cidades estão com mais demanda para a sua banda.
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <div class="mock-row">
-                <div class="mock-thumb">
-                  <!-- IA: mock mobile perfil -->
-                  <img src="./images/bl-mock-profile-mobile.png" alt="Mockup de perfil de banda cover no celular">
-                  <span>Perfil da sua banda pronto para mandar no próximo contato</span>
-                </div>
-                <div class="mock-thumb">
-                  <!-- IA: mock desktop agenda -->
-                  <img src="./images/bl-mock-calendar-desktop.png" alt="Mockup de agenda de shows no desktop">
-                  <span>Agenda visual com datas fechadas e disponíveis</span>
-                </div>
-                <div class="mock-thumb">
-                  <!-- IA: tela de pedidos -->
-                  <img src="./images/bl-mock-leads-list.png" alt="Mockup de lista de pedidos de show">
-                  <span>Pedidos de show organizados por data e tipo de evento</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Expectativa / Early adopters -->
-      <section id="bands-fortaleza" class="section">
-        <div class="container">
-          <div class="section-header-center">
-            <h2 class="section-title">Começando por Fortaleza, expansão nacional</h2>
-            <p class="section-intro">
-              O foco inicial é Fortaleza (validação local com bandas e bares reais),
-              mas a plataforma está aberta nacionalmente desde o início. Você pode
-              se cadastrar de qualquer cidade do Brasil.
-            </p>
-          </div>
-
-          <div class="future-proof">
-            <div>
-              <h3>Prioridade para bandas early adopters</h3>
-              <p>
-                As bandas e bares que entrarem agora na lista de espera terão
-                prioridade nos primeiros convites para testes, espaço de destaque
-                nos primeiros meses e voz ativa para moldar as próximas funcionalidades.
-              </p>
-            </div>
-            <div>
-              <h3>Parcerias com casas de show</h3>
-              <p>
-                Estamos estruturando parcerias com bares, casas de show e venues
-                que já vivem de música ao vivo, para garantir palco real, público
-                qualificado e dados concretos desde o início.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Waitlist / Form -->
-      <section id="bands-form" class="section section-soft">
-        <div class="container">
-          <div class="waitlist">
-            <div class="waitlist-header">
-              <h2>Quer ser uma das primeiras bandas no BandaLocal?</h2>
-              <p>
-                Se você tem banda cover ou tributo e quer lotar mais datas, deixe seus contatos.
-                Usaremos essa lista para convidar bandas para os testes e para o lançamento.
-              </p>
-            </div>
-
-            <form id="bands-form" class="waitlist-form">
-              <div id="form-message" class="form-message" style="display: none;"></div>
-              <div class="form-grid">
-                <div class="form-row">
-                  <label for="band_name">Nome da banda *</label>
-                  <input type="text" id="band_name" name="band_name" required>
-                </div>
-
-                <div class="form-row">
-                  <label for="city">Cidade / UF *</label>
-                  <input type="text" id="city" name="city" placeholder="São Paulo / SP" required>
-                </div>
-
-                <div class="form-row">
-                  <label for="instagram">Instagram da banda *</label>
-                  <input type="url" id="instagram" name="instagram" placeholder="https://instagram.com/suabanda"
-                    required>
-                </div>
-
-                <div class="form-row">
-                  <label for="whatsapp">WhatsApp para contato *</label>
-                  <input type="tel" id="whatsapp" name="whatsapp" placeholder="+55 11 99999-9999" required>
-                </div>
-
-                <div class="form-row">
-                  <label for="youtube">YouTube (canal ou playlist)</label>
-                  <input type="url" id="youtube" name="youtube" placeholder="https://youtube.com/@suabanda">
-                </div>
-
-                <div class="form-row">
-                  <label for="styles">Quais bandas / estilos vocês tocam?</label>
-                  <input type="text" id="styles" name="styles" placeholder="Metallica, Legião Urbana, Rock 80s">
-                </div>
-
-                <div class="form-row">
-                  <label for="contact_name">Nome da pessoa de contato *</label>
-                  <input type="text" id="contact_name" name="contact_name" required>
-                </div>
-
-                <div class="form-row">
-                  <label for="email">E-mail *</label>
-                  <input type="email" id="email" name="email" required>
-                </div>
-
-                <div class="form-row form-row-full">
-                  <label for="extra">Link de vídeo ao vivo ou observações</label>
-                  <textarea id="extra" name="extra"
-                    placeholder="Cole aqui 1-2 links de vídeos ao vivo, disponibilidade típica, cache médio, etc."></textarea>
-                </div>
-
-                <div class="form-row form-row-full">
-                  <div class="consent">
-                    <input type="checkbox" id="lgpd_consent" name="lgpd_consent" required>
-                    <label for="lgpd_consent">
-                      Autorizo o uso dos meus dados para que o BandaLocal entre em contato sobre a plataforma,
-                      lista de espera e convites para testes, conforme a Política de Privacidade.
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-footer">
-                <button type="submit" class="btn btn-primary">
-                  Entrar na lista de espera
-                </button>
-                <div class="form-footnote">
-                  Seus dados serão usados apenas para contato sobre o BandaLocal e convites para participar dos testes.
-                  Você poderá pedir a exclusão a qualquer momento.
-                </div>
-                <div class="tagline-soft">
-                  Sem spam, sem compromisso. Só queremos saber quem está pronto para tocar mais.
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <!-- FAQ -->
-      <section id="bands-faq" class="section">
-        <div class="container faq">
-          <h2>Perguntas rápidas</h2>
-
-          <details>
-            <summary>Quando o BandaLocal será lançado?</summary>
-            <p>
-              Estamos validando o produto com um grupo inicial de bandas e venues.
-              As primeiras convites para testes devem começar nos próximos meses,
-              com abertura gradual conforme a demanda.
-            </p>
-          </details>
-
-          <details>
-            <summary>A lista de espera é paga?</summary>
-            <p>
-              Não. A lista de espera é totalmente gratuita. No futuro, teremos planos
-              gratuitos e Pro para bandas e venues, mas você decide se faz sentido assinar.
-            </p>
-          </details>
-
-          <details>
-            <summary>Meus dados ficarão públicos?</summary>
-            <p>
-              Não. As informações deste formulário servem apenas para contato direto
-              com você sobre o BandaLocal e convites para testes, de acordo com a
-              nossa Política de Privacidade.
-            </p>
-          </details>
-        </div>
-      </section>
-
-      <!-- Hero - Venues -->
-      <section id="venues-hero" class="hero">
-        <div class="container hero-grid">
-          <div>
-            <div class="hero-kicker">
-              Lançamento em breve
-              <span>🏢 Early access para bares e casas de show</span>
-            </div>
-
-            <h1 class="hero-title">
-              Preencha sua agenda com as <span>melhores bandas da sua cidade</span>
-            </h1>
-
-            <p class="hero-subtitle">
-              Descubra bandas que lotam a casa, veja histórico de apresentações,
-              publique sua programação semanal e receba leads de shows organizados.
-              Tudo em um só lugar, sem depender apenas do WhatsApp.
-            </p>
-
-            <div class="hero-ctas">
-              <a href="#venues-form" class="btn btn-primary">
-                Sou um bar/local
-              </a>
-              <a href="#bands-hero" class="btn btn-secondary">
-                Sou uma banda
-              </a>
-            </div>
-
-            <div class="hero-ctas-secondary">
-              <a href="#venues-como-funciona" class="btn btn-ghost">
-                Ver como vai funcionar
-              </a>
-            </div>
-
-            <p class="hero-footnote">
-              Para <strong>bares, casas de show, pubs, restaurantes e venues</strong>
-              que vivem de música ao vivo em Fortaleza, SP, RJ e outras capitais.
-            </p>
-          </div>
-
-          <div class="hero-media-shell">
-            <div class="bands-collage">
-              <div class="bands-collage-grid">
-                <div class="bands-cell bands-main">
-                  <!-- Imagem IA principal: palco pequeno, bar lotado, banda cover -->
-                </div>
-                <div class="bands-cell bands-top-right">
-                  <!-- Imagem IA: banda em festival pequeno ao ar livre -->
-                </div>
-                <div class="bands-cell bands-bottom-left">
-                  <!-- Imagem IA: banda cover em casamento -->
-                </div>
-                <div class="bands-cell bands-bottom-right">
-                  <!-- Imagem IA: detalhe do público cantando junto -->
-                </div>
-              </div>
-
-              <div class="bands-chip-row">
-                <div class="bands-chip">
-                  <span></span>
-                  Programação de qualidade
-                </div>
-                <div class="bands-chip">
-                  <span></span>
-                  Casa sempre cheia
-                </div>
-              </div>
-
-              <div class="bands-overlay">
-                <div>
-                  <strong>Encontre as bandas perfeitas para cada noite.</strong><br>
-                  Em breve, catálogo completo de bandas disponíveis.
-                </div>
-                <div class="bands-strip">
-                  <span class="bands-strip-dot"></span>
-                  Pré-lançamento para bares e venues
-                </div>
-              </div>
-            </div>
-
-            <div class="hero-media-footer">
-              <div>
-                <strong>Saiba quem toca bem.</strong> Histórico, reputação e
-                disponibilidade em um só lugar.
-              </div>
-              <div class="hero-badges-row">
-                <div class="hero-badge">Catálogo de bandas</div>
-                <div class="hero-badge">Agenda integrada</div>
-                <div class="hero-badge">Analytics</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Problemas - Venues -->
-      <section id="venues-problems" class="section section-dark">
-        <div class="container split">
-          <div>
-            <h2 class="section-title">
-              Programar shows não deveria ser um quebra-cabeça.
-            </h2>
-            <p>
-              Bares e casas de show perdem horas no WhatsApp tentando encontrar bandas
-              disponíveis, verificar disponibilidade de datas, negociar valores e
-              montar programação semanal - tudo de forma desorganizada.
-            </p>
-            <p>
-              Sem um histórico claro de quais bandas lotam a casa, qual público elas
-              atraem e como foram apresentações anteriores, cada noite é um aposta.
-              Muitas vezes, ótimas bandas passam despercebidas e casas ficam vazias
-              simplesmente porque ninguém soube do show.
-            </p>
-            <p>
-              O resultado: programação inconsistente, noites fracas e dificuldade
-              em construir público fiel que sabe quando vale a pena aparecer.
-            </p>
-          </div>
-
-          <div class="image-grid">
-            <div class="image-card">
-              <img src="./images/bl-bar-empty.png" alt="Agenda desorganizada">
-              <div class="image-tag">WhatsApp, Instagram, cadernos... nada centralizado</div>
-            </div>
-            <div class="image-card">
-              <img src="./images/bl-bar-empty.png" alt="Noite fracassada">
-              <div class="image-tag">Boa programação, mas público não ficou sabendo</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Solução - Venues -->
-      <section id="venues-solution" class="section section-soft">
-        <div class="container">
-          <div class="section-header-center">
-            <h2 class="section-title">
-              Tudo que você precisa para lotar sua casa
-            </h2>
-            <p class="section-intro">
-              O BandaLocal dá para bares e casas de show as ferramentas para programar
-              melhor, atrair o público certo e construir nights consistentes:
-              catálogo de bandas, agenda integrada, analytics e comunicação direta.
-            </p>
-          </div>
-
-          <div class="cards-3">
-            <article class="card">
-              <h3>Catálogo de bandas</h3>
-              <p>
-                Encontre bandas por estilo, cidade, disponibilidade e faixa de preço.
-                Veja vídeos, fotos, reputação e histórico de apresentações antes de fechar contrato.
-              </p>
-            </article>
-            <article class="card">
-              <h3>Agenda integrada</h3>
-              <p>
-                Publique sua programação semanal automaticamente. Bandas veem suas datas
-                livres e podem se candidatar. Fãs seguem sua casa e recebem alertas de shows.
-              </p>
-            </article>
-            <article class="card">
-              <h3>Analytics inteligentes</h3>
-              <p>
-                Descubra quais estilos lotam mais, quais dias da semana funcionam melhor
-                e quais bandas trazem o público que retorna. Dados para tomar decisões
-                baseadas em evidências, não achismos.
-              </p>
-            </article>
-          </div>
-
-          <div class="center">
-            <a href="#venues-form" class="btn btn-primary">
-              Quero cadastrar meu bar
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Como Funciona - Venues -->
-      <section id="venues-como-funciona" class="section section-dark">
-        <div class="container">
-          <div class="section-header-center">
-            <h2 class="section-title">Como vai funcionar na prática</h2>
-            <p class="section-intro">
-              Simples: encontre bandas, programe datas, lote a casa.
-              Ferramentas pensadas para a realidade de bares e casas de show brasileiras.
-            </p>
-          </div>
-
-          <div class="feature-split">
-            <div>
-              <ul class="feature-list">
-                <li>
-                  <strong>Busca inteligente:</strong> encontre bandas por cidade, estilo,
-                  data disponível e faixa de preço. Veja reputação, vídeos e histórico
-                  antes de contactar.
-                </li>
-                <li>
-                  <strong>Programação semanal:</strong> publique sua agenda automaticamente.
-                  Bandas veem datas livres e se candidatam. Fãs seguem e recebem alertas.
-                </li>
-                <li>
-                  <strong>Comunicação direta:</strong> receba pedidos de shows organizados,
-                  negocie direto com bandas via chat integrado, sem perder nada no WhatsApp.
-                </li>
-                <li>
-                  <strong>Analytics de público:</strong> descubra quais estilos lotam mais,
-                  quais dias funcionam melhor e quais bandas trazem público fiel.
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <div class="mock-row">
-                <div class="mock-thumb">
-                  <img src="./images/bl-mock-profile-mobile.png" alt="Busca de bandas">
-                  <span>Encontre bandas por estilo, cidade e disponibilidade</span>
-                </div>
-                <div class="mock-thumb">
-                  <img src="./images/bl-mock-calendar-desktop.png" alt="Agenda do bar">
-                  <span>Sua programação semanal integrada com bandas</span>
-                </div>
-                <div class="mock-thumb">
-                  <img src="./images/bl-mock-leads-list.png" alt="Analytics">
-                  <span>Analytics: quais bandas lotam, em quais dias</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Fortaleza - Venues -->
-      <section id="venues-fortaleza" class="section">
-        <div class="container">
-          <div class="section-header-center">
-            <h2 class="section-title">Começando por Fortaleza, expansão nacional</h2>
-            <p class="section-intro">
-              O foco inicial é Fortaleza (validação local com bares e bandas reais),
-              mas a plataforma está aberta nacionalmente. Cadastre-se de qualquer
-              cidade do Brasil para garantir prioridade no lançamento.
-            </p>
-          </div>
-
-          <div class="future-proof">
-            <div>
-              <h3>Acesso antecipado a bandas</h3>
-              <p>
-                Bares e venues que se cadastrarem agora terão acesso prioritário ao
-                catálogo de bandas early adopters, podendo entrar em contato antes
-                mesmo do lançamento oficial.
-              </p>
-            </div>
-            <div>
-              <h3>Parcerias estratégicas</h3>
-              <p>
-                Estamos estruturando parcerias com as casas de show mais ativas de
-                Fortaleza para validação das ferramentas. Quem entrar agora terá
-                voz ativa na construção das features.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Formulário - Venues -->
-      <section id="venues-form" class="section section-soft">
-        <div class="container">
-          <div class="waitlist">
-            <div class="waitlist-header">
-              <h2>Quer ser um dos primeiros bares no BandaLocal?</h2>
-              <p>
-                Se você tem bar, casa de show, pub ou venue e quer programar melhor
-                seus shows, deixe seus contatos. Usaremos essa lista para convidar
-                venues para os testes e para o lançamento.
-              </p>
-            </div>
-
-            <form id="venues-form" class="waitlist-form">
-              <div id="venues-form-message" class="form-message" style="display: none;"></div>
-              <div class="form-grid">
-                <div class="form-row">
-                  <label for="venue_band_name">Nome do estabelecimento *</label>
-                  <input type="text" id="venue_band_name" name="band_name" required>
-                </div>
-
-                <div class="form-row">
-                  <label for="venue_city">Cidade / UF *</label>
-                  <input type="text" id="venue_city" name="city" placeholder="Fortaleza / CE" required>
-                </div>
-
-                <div class="form-row">
-                  <label for="venue_instagram">Instagram do estabelecimento *</label>
-                  <input type="url" id="venue_instagram" name="instagram" placeholder="https://instagram.com/seubar" required>
-                </div>
-
-                <div class="form-row">
-                  <label for="venue_whatsapp">WhatsApp para contato *</label>
-                  <input type="tel" id="venue_whatsapp" name="whatsapp" placeholder="+55 85 99999-9999" required>
-                </div>
-
-                <div class="form-row">
-                  <label for="venue_youtube">YouTube (canal ou playlist)</label>
-                  <input type="url" id="venue_youtube" name="youtube" placeholder="https://youtube.com/@seubar">
-                </div>
-
-                <div class="form-row">
-                  <label for="venue_styles">Quais tipos de eventos / estilos vocês fazem?</label>
-                  <input type="text" id="venue_styles" name="styles" placeholder="Rock, Pop, Sertanejo, Shows ao vivo">
-                </div>
-
-                <div class="form-row">
-                  <label for="venue_contact_name">Nome da pessoa de contato *</label>
-                  <input type="text" id="venue_contact_name" name="contact_name" required>
-                </div>
-
-                <div class="form-row">
-                  <label for="venue_email">E-mail *</label>
-                  <input type="email" id="venue_email" name="email" required>
-                </div>
-
-                <div class="form-row form-row-full">
-                  <label for="venue_extra">Observações</label>
-                  <textarea id="venue_extra" name="extra"
-                    placeholder="Endereço completo, capacidade, tipo de eventos que faz, dias da semana com shows, etc."></textarea>
-                </div>
-
-                <div class="form-row form-row-full">
-                  <div class="consent">
-                    <input type="checkbox" id="venue_lgpd_consent" name="lgpd_consent" required>
-                    <label for="venue_lgpd_consent">
-                      Autorizo o uso dos meus dados para que o BandaLocal entre em contato
-                      sobre a plataforma, lista de espera e convites para testes, conforme
-                      a Política de Privacidade.
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-footer">
-                <button type="submit" class="btn btn-primary">
-                  Entrar na lista de espera
-                </button>
-                <div class="form-footnote">
-                  Seus dados serão usados apenas para contato sobre o BandaLocal e
-                  convites para participar dos testes. Você poderá pedir a exclusão
-                  a qualquer momento.
-                </div>
-                <div class="tagline-soft">
-                  Sem spam, sem compromisso. Só queremos saber quem está pronto para
-                  programar melhor.
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <!-- FAQ - Venues -->
-      <section id="venues-faq" class="section">
-        <div class="container faq">
-          <h2>Perguntas rápidas - Bares e Locais</h2>
-
-          <details>
-            <summary>Quando o BandaLocal estará disponível para bares?</summary>
-            <p>
-              Estamos validando o produto simultaneamente com bandas e venues.
-              As primeiras convites para testes devem começar nos próximos meses,
-              com abertura gradual conforme a demanda.
-            </p>
-          </details>
-
-          <details>
-            <summary>Como funciona a busca por bandas?</summary>
-            <p>
-              Você poderá buscar bandas por cidade, estilo musical, data disponível
-              e faixa de preço. Cada perfil terá vídeos, fotos, histórico de
-              apresentações e avaliações de venues anteriores.
-            </p>
-          </details>
-
-          <details>
-            <summary>Preciso pagar para usar a plataforma?</summary>
-            <p>
-              Teremos planos gratuitos e Pro. O plano gratuito permite busca básica
-              e contato com bandas. O plano Pro inclui analytics, notificações
-              WhatsApp e prioridade nos resultados de busca.
-            </p>
-          </details>
-
-          <details>
-            <summary>Meus dados ficarão públicos?</summary>
-            <p>
-              Não. As informações deste formulário servem apenas para contato direto
-              sobre o BandaLocal e convites para testes, conforme nossa Política
-              de Privacidade.
-            </p>
-          </details>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="container footer-inner">
-        <div>&copy; 2026 BandaLocal. Todos os direitos reservados.</div>
-        <div class="footer-links">
-          <a href="/privacy">Política de Privacidade</a>
-          <a href="mailto:wedson@whysimplicity.com">wedson@whysimplicity.com</a>
-        </div>
-      </div>
-    </footer>
+  <!-- Floating Music Notes -->
+  <div class="music-notes">
+    <span class="note">🎵</span>
+    <span class="note">🎶</span>
+    <span class="note">🎸</span>
+    <span class="note">🎤</span>
+    <span class="note">🎹</span>
+    <span class="note">🪕</span>
+    <span class="note">🥁</span>
   </div>
 
+  <!-- Navigation Dots -->
+  <nav class="nav-dots">
+    <a class="nav-dot active" href="#hero" title="Início"></a>
+    <a class="nav-dot" href="#problem" title="Problema"></a>
+    <a class="nav-dot" href="#solution" title="Solução"></a>
+    <a class="nav-dot" href="#how-it-works" title="Como Funciona"></a>
+    <a class="nav-dot" href="#features" title="Funcionalidades"></a>
+    <a class="nav-dot" href="#roadmap" title="Roadmap"></a>
+    <a class="nav-dot" href="#cta" title="Contato"></a>
+  </nav>
+
+  <!-- Slide 1: Hero -->
+  <section id="hero" class="slide">
+    <div class="hero-bg">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
+    </div>
+    <div class="slide-content hero-content">
+      <div class="hero-badge">
+        <span>A plataforma da música ao vivo</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="banda">BandaLocal</span>
+      </h1>
+      <p class="hero-subtitle">
+        Conectando bandas, casas de show e fãs para organizar e fortalecer a cena musical local
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">30+</div>
+          <div class="hero-stat-label">Cidades</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">120+</div>
+          <div class="hero-stat-label">Bandas</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">350+</div>
+          <div class="hero-stat-label">Shows por ano</div>
+        </div>
+      </div>
+      <div class="sound-wave">
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 2: Problem -->
+  <section id="problem" class="slide">
+    <div class="slide-content">
+      <span class="section-label animate-on-scroll">O Problema</span>
+      <h2 class="section-title animate-on-scroll">A cena musical está fragmentada</h2>
+      <p class="section-desc animate-on-scroll">Bandas, venues e fãs enfrentam barreiras para se conectar e fazer a cena acontecer.</p>
+      <div class="problem-grid">
+        <div class="problem-card animate-on-scroll">
+          <div class="problem-icon">🎸</div>
+          <h3 class="problem-title">Para as Bandas</h3>
+          <p class="problem-text">Dificuldade para encontrar venues, falta de visibilidade e processos manuais de agendamento tornam a organização de shows um desafio constante.</p>
+        </div>
+        <div class="problem-card animate-on-scroll">
+          <div class="problem-icon">🏛️</div>
+          <h3 class="problem-title">Para os Venues</h3>
+          <p class="problem-text">Processos desorganizados para contratar bandas, ausência de um catálogo centralizado e dificuldade em atrair o público certo.</p>
+        </div>
+        <div class="problem-card animate-on-scroll">
+          <div class="problem-icon">🎤</div>
+          <h3 class="problem-title">Para os Fãs</h3>
+          <p class="problem-text">Informações espalhadas em múltiplos canais, dificuldade em descobrir novas bandas e perder shows que gostariam de ter visto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 3: Solution -->
+  <section id="solution" class="slide">
+    <div class="solution-bg"></div>
+    <div class="slide-content">
+      <span class="section-label animate-on-scroll">A Solução</span>
+      <h2 class="section-title animate-on-scroll">Um hub central para toda a cena</h2>
+      <p class="section-desc animate-on-scroll">BandaLocal é a plataforma que une todos os atores do ecossistema musical local em um só lugar.</p>
+      <div class="solution-features">
+        <div class="feature-item animate-on-scroll">
+          <div class="feature-number">01</div>
+          <div class="feature-content">
+            <h3>Perfis Completos</h3>
+            <p>Bandas exibem sua música, integrantes e histórico. Venues mostram seu espaço e equipamento. Fãs criam sua identidade musical.</p>
+          </div>
+        </div>
+        <div class="feature-item animate-on-scroll">
+          <div class="feature-number">02</div>
+          <div class="feature-content">
+            <h3>Descoberta Inteligente</h3>
+            <p>Algoritmos de matching conectam bandas com venues ideais e fãs com shows que combinam com seu gosto musical.</p>
+          </div>
+        </div>
+        <div class="feature-item animate-on-scroll">
+          <div class="feature-number">03</div>
+          <div class="feature-content">
+            <h3>Fluxo Simplificado</h3>
+            <p>Do contato ao contrato, toda a comunicação e organização acontece na plataforma, sem planilhas ou WhatsApp.</p>
+          </div>
+        </div>
+        <div class="feature-item animate-on-scroll">
+          <div class="feature-number">04</div>
+          <div class="feature-content">
+            <h3>Comunidade Viva</h3>
+            <p>Fãs seguem bandas favoritas, venues promovem eventos e todos contribuem para fortalecer a cena local.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 4: How It Works -->
+  <section id="how-it-works" class="slide">
+    <div class="slide-content">
+      <span class="section-label animate-on-scroll">Como Funciona</span>
+      <h2 class="section-title animate-on-scroll">Três perfis, um ecossistema</h2>
+      <p class="section-desc animate-on-scroll">Cada tipo de usuário tem sua experiência otimizada para suas necessidades específicas.</p>
+      <div class="user-flows">
+        <div class="user-flow animate-on-scroll">
+          <div class="user-flow-avatar">
+            <div class="avatar-glow"></div>
+            <div class="avatar-circle avatar-bands">🎸</div>
+          </div>
+          <h3 class="user-flow-title">Bandas</h3>
+          <p class="user-flow-role">Criadores de música</p>
+          <p class="user-flow-desc">Mostrem seu trabalho, encontrem venues e se conectem com fãs.</p>
+          <div class="user-flow-steps">
+            <div class="flow-step">
+              <span class="step-icon">1</span>
+              <span class="step-text">Criam perfil com música, fotos e integrantes</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-icon">2</span>
+              <span class="step-text">Descobrem venues compatíveis</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-icon">3</span>
+              <span class="step-text">Recebem e gerenciam convites</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-icon">4</span>
+              <span class="step-text">Conquistam seguidores e fãs</span>
+            </div>
+          </div>
+        </div>
+        <div class="user-flow animate-on-scroll">
+          <div class="user-flow-avatar">
+            <div class="avatar-glow"></div>
+            <div class="avatar-circle avatar-venues">🏛️</div>
+          </div>
+          <h3 class="user-flow-title">Venues</h3>
+          <p class="user-flow-role">Casas de show e bares</p>
+          <p class="user-flow-desc">Encontrem as bandas ideais, promovam shows e atraiam público.</p>
+          <div class="user-flow-steps">
+            <div class="flow-step">
+              <span class="step-icon">1</span>
+              <span class="step-text">Criam perfil com capacidade e estilo</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-icon">2</span>
+              <span class="step-text">Buscam bandas por gênero e cidade</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-icon">3</span>
+              <span class="step-text">Convidam bandas para shows</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-icon">4</span>
+              <span class="step-text">Promovem eventos na plataforma</span>
+            </div>
+          </div>
+        </div>
+        <div class="user-flow animate-on-scroll">
+          <div class="user-flow-avatar">
+            <div class="avatar-glow"></div>
+            <div class="avatar-circle avatar-fans">🎤</div>
+          </div>
+          <h3 class="user-flow-title">Fãs</h3>
+          <p class="user-flow-role">Apaixonados por música</p>
+          <p class="user-flow-desc">Descubram bandas, acompanhem venues e nunca percam um show.</p>
+          <div class="user-flow-steps">
+            <div class="flow-step">
+              <span class="step-icon">1</span>
+              <span class="step-text">Criam perfil com gostos musicais</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-icon">2</span>
+              <span class="step-text">Seguem bandas e venues favoritos</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-icon">3</span>
+              <span class="step-text">Descobrem shows na sua cidade</span>
+            </div>
+            <div class="flow-step">
+              <span class="step-icon">4</span>
+              <span class="step-text">Constroem sua cena musical</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 5: Features -->
+  <section id="features" class="slide">
+    <div class="slide-content">
+      <span class="section-label animate-on-scroll">Funcionalidades</span>
+      <h2 class="section-title animate-on-scroll">Tudo que você precisa em um só lugar</h2>
+      <p class="section-desc animate-on-scroll">Ferramentas pensadas para quem vive música ao vivo.</p>
+      <div class="features-grid">
+        <div class="feature-card animate-on-scroll">
+          <span class="feature-card-icon">📅</span>
+          <h3 class="feature-card-title">Calendário de Shows</h3>
+          <p class="feature-card-desc">Acompanhe todos os shows em um só lugar, com lembretes e detalhes de cada evento.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <span class="feature-card-icon">🔍</span>
+          <h3 class="feature-card-title">Busca Avançada</h3>
+          <p class="feature-card-desc">Encontre bandas por gênero, cidade e disponibilidade. Venues por capacidade e estilo.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <span class="feature-card-icon">🖼️</span>
+          <h3 class="feature-card-title">Galeria de Mídia</h3>
+          <p class="feature-card-desc">Bandas e venues podem showcase com fotos e vídeos de apresentações anteriores.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <span class="feature-card-icon">📊</span>
+          <h3 class="feature-card-title">Dashboard de Insights</h3>
+          <p class="feature-card-desc">Visualize estatísticas de engajamento,shows realizados e crescimento da audiência.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <span class="feature-card-icon">🔗</span>
+          <h3 class="feature-card-title">Links Sociais</h3>
+          <p class="feature-card-desc">Integre Spotify, Instagram, YouTube e outras plataformas em seu perfil.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <span class="feature-card-icon">✉️</span>
+          <h3 class="feature-card-title">Convites Diretos</h3>
+          <p class="feature-card-desc">Venues podem convidar bandas diretamente pela plataforma, sem intermediários.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <span class="feature-card-icon">🎯</span>
+          <h3 class="feature-card-title">Leads e Oportunidades</h3>
+          <p class="feature-card-desc">Fãs podem manifestar interesse, gerando leads para bandas e venues.</p>
+        </div>
+        <div class="feature-card animate-on-scroll">
+          <span class="feature-card-icon">🌍</span>
+          <h3 class="feature-card-title">Cenas Locais</h3>
+          <p class="feature-card-desc">Conecte-se com a cena musical da sua cidade e descubra o que está acontecendo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 6: Roadmap -->
+  <section id="roadmap" class="slide">
+    <div class="slide-content">
+      <span class="section-label animate-on-scroll">Roadmap</span>
+      <h2 class="section-title animate-on-scroll">O caminho que estamos trilhando</h2>
+      <p class="section-desc animate-on-scroll">Construindo o futuro da cena musical, um feature de cada vez.</p>
+      <div class="roadmap-timeline">
+        <div class="roadmap-item completed animate-on-scroll">
+          <span class="roadmap-phase">Phase 1</span>
+          <h3 class="roadmap-title">Fundação</h3>
+          <ul class="roadmap-list">
+            <li>Autenticação de usuários</li>
+            <li>Perfis de bandas</li>
+            <li>Perfis de venues</li>
+            <li>Perfis de fãs</li>
+          </ul>
+          <span class="roadmap-status">✓ Concluído</span>
+        </div>
+        <div class="roadmap-item completed animate-on-scroll">
+          <span class="roadmap-phase">Phase 2</span>
+          <h3 class="roadmap-title">Descoberta</h3>
+          <ul class="roadmap-list">
+            <li>Busca de bandas por cidade</li>
+            <li>Busca de venues</li>
+            <li>Páginas de perfil públicas</li>
+            <li>Galeria de fotos</li>
+          </ul>
+          <span class="roadmap-status">✓ Concluído</span>
+        </div>
+        <div class="roadmap-item current animate-on-scroll">
+          <span class="roadmap-phase">Phase 3</span>
+          <h3 class="roadmap-title">Conexão</h3>
+          <ul class="roadmap-list">
+            <li>Sistema de convites</li>
+            <li>Dashboard de insights</li>
+            <li>Seguir bandas/venues</li>
+            <li>Leads de fãs</li>
+          </ul>
+          <span class="roadmap-status">◡ Em andamento</span>
+        </div>
+        <div class="roadmap-item animate-on-scroll">
+          <span class="roadmap-phase">Phase 4</span>
+          <h3 class="roadmap-title">Shows</h3>
+          <ul class="roadmap-list">
+            <li>Calendário de eventos</li>
+            <li>Página de show</li>
+            <li>Confirmação de presença</li>
+            <li>Notificações</li>
+          </ul>
+          <span class="roadmap-status">◔ Planejado</span>
+        </div>
+        <div class="roadmap-item animate-on-scroll">
+          <span class="roadmap-phase">Phase 5</span>
+          <h3 class="roadmap-title">Crescimento</h3>
+          <ul class="roadmap-list">
+            <li>Reviews e avaliações</li>
+            <li>Mensagens na plataforma</li>
+            <li>Integração streaming</li>
+            <li>App mobile</li>
+          </ul>
+          <span class="roadmap-status">◔ Futuro</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 7: CTA -->
+  <section id="cta" class="slide">
+    <div class="vinyl-record vinyl-left">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="#1a1a2e" stroke="rgba(255,107,53,0.3)" stroke-width="2"/>
+        <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,107,53,0.2)" stroke-width="1"/>
+        <circle cx="50" cy="50" r="32" fill="none" stroke="rgba(255,107,53,0.15)" stroke-width="1"/>
+        <circle cx="50" cy="50" r="24" fill="none" stroke="rgba(255,107,53,0.1)" stroke-width="1"/>
+        <circle cx="50" cy="50" r="8" fill="#FF6B35"/>
+        <circle cx="50" cy="50" r="3" fill="#1a1a2e"/>
+      </svg>
+    </div>
+    <div class="vinyl-record vinyl-right">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="#1a1a2e" stroke="rgba(0,102,204,0.3)" stroke-width="2"/>
+        <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(0,102,204,0.2)" stroke-width="1"/>
+        <circle cx="50" cy="50" r="32" fill="none" stroke="rgba(0,102,204,0.15)" stroke-width="1"/>
+        <circle cx="50" cy="50" r="24" fill="none" stroke="rgba(0,102,204,0.1)" stroke-width="1"/>
+        <circle cx="50" cy="50" r="8" fill="#0066CC"/>
+        <circle cx="50" cy="50" r="3" fill="#1a1a2e"/>
+      </svg>
+    </div>
+    <div class="slide-content cta-content">
+      <h2 class="cta-title animate-on-scroll">
+        Vamos <span class="highlight">fortalecer</span> sua cena musical?
+      </h2>
+      <p class="cta-subtitle animate-on-scroll">
+        Junte-se a nós na missão de conectar todos os atores da música ao vivo e fazer a cena local acontecer.
+      </p>
+      <div class="cta-buttons animate-on-scroll">
+        <a href="mailto:wedson.sousa.lima@gmail.com" class="cta-btn cta-btn-primary">
+          <span>Entrar em contato</span>
+          <span>✉</span>
+        </a>
+      </div>
+      <div class="cta-footer">
+        <p>© 2025 BandaLocal · Feito com ♪ para a cena musical brasileira</p>
+      </div>
+    </div>
+  </section>
+
   <script>
-    // Configuração: Substitua pela URL do seu Google Apps Script Web App
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxrervv8V87M5ZBrhvci6BZVl--7sByJuoX4CAbHeg9xVAhl6Au6rsh0zU3_2dKlKuL/exec';
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
 
-    // Aguardar o DOM estar pronto
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.getElementById('bands-form');
-      const formMessage = document.getElementById('form-message');
-
-      if (!form) {
-        console.error('Formulário não encontrado!');
-        return;
-      }
-
-      const submitButton = form.querySelector('button[type="submit"]');
-
-      if (!formMessage) {
-        console.error('Elemento de mensagem não encontrado!');
-        return;
-      }
-
-      function showMessage(text, type) {
-        if (formMessage) {
-          formMessage.textContent = text;
-          formMessage.className = `form-message ${type}`;
-          formMessage.style.display = 'flex';
-
-          if (type === 'success') {
-            formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
         }
-      }
-
-      function hideMessage() {
-        if (formMessage) {
-          formMessage.style.display = 'none';
-        }
-      }
-
-      function setLoading(loading) {
-        if (submitButton) {
-          if (loading) {
-            submitButton.disabled = true;
-            submitButton.classList.add('loading');
-            submitButton.textContent = 'Enviando...';
-          } else {
-            submitButton.disabled = false;
-            submitButton.classList.remove('loading');
-            submitButton.textContent = 'Entrar na lista de espera';
-          }
-        }
-      }
-
-      function validateForm() {
-        // Validação manual dos campos obrigatórios
-        const requiredFields = form.querySelectorAll('[required]');
-        let isValid = true;
-
-        requiredFields.forEach(field => {
-          if (!field.value.trim()) {
-            isValid = false;
-            field.reportValidity();
-          }
-        });
-
-        // Verificar checkbox de consentimento
-        const consentCheckbox = form.querySelector('#lgpd_consent');
-        if (consentCheckbox && !consentCheckbox.checked) {
-          isValid = false;
-          consentCheckbox.reportValidity();
-        }
-
-        return isValid;
-      }
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        hideMessage();
-
-        // Usar e.target que é garantidamente o formulário que disparou o evento
-        const targetForm = e.target;
-
-        // Verificar se é realmente um formulário
-        if (!targetForm || targetForm.tagName !== 'FORM') {
-          showMessage('Erro: Elemento do formulário inválido.', 'error');
-          return;
-        }
-
-        // Validação básica
-        if (!validateForm()) {
-          return;
-        }
-
-        // Coletar dados do formulário usando e.target
-        const formData = new FormData(targetForm);
-      const data = {
-        tipo: 'banda',
-        band_name: formData.get('band_name'),
-        city: formData.get('city'),
-        instagram: formData.get('instagram'),
-        whatsapp: formData.get('whatsapp'),
-        youtube: formData.get('youtube') || '',
-        styles: formData.get('styles') || '',
-        contact_name: formData.get('contact_name'),
-        email: formData.get('email'),
-        extra: formData.get('extra') || '',
-        lgpd_consent: formData.get('lgpd_consent') ? 'Sim' : 'Não'
-      };
-
-      setLoading(true);
-      showMessage('Enviando seus dados...', 'loading');
-
-      try {
-        // Usar form-urlencoded para evitar preflight CORS
-        // Google Apps Script funciona melhor com esta abordagem
-        const formBody = Object.keys(data)
-          .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-          .join('&');
-
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors', // Necessário para Google Apps Script
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: formBody
-        });
-
-        // Com mode: 'no-cors', não podemos ler a resposta, mas assumimos sucesso
-        // O Google Apps Script processará os dados e salvará na planilha
-        // Se houver erro, o usuário não verá, mas os dados serão salvos se tudo estiver OK
-        showMessage('Obrigado! Seus dados foram enviados com sucesso. Entraremos em contato em breve.', 'success');
-        targetForm.reset();
-
-        // Scroll para a mensagem de sucesso
-        setTimeout(() => {
-          formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 100);
-
-      } catch (error) {
-        console.error('Erro ao enviar formulário:', error);
-        showMessage('Erro ao enviar formulário. Por favor, tente novamente ou entre em contato diretamente em wedson@whysimplicity.com', 'error');
-      } finally {
-        setLoading(false);
-      }
       });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      observer.observe(el);
     });
 
-    // Configuração para formulário de venues - usando o mesmo script do Google
-    // Aguardar o DOM estar pronto (venues)
-    document.addEventListener('DOMContentLoaded', function() {
-      const venuesForm = document.getElementById('venues-form');
-      const venuesFormMessage = document.getElementById('venues-form-message');
+    // Navigation dots active state
+    const sections = document.querySelectorAll('.slide');
+    const navDots = document.querySelectorAll('.nav-dot');
 
-      if (!venuesForm) {
-        console.error('Formulário de venues não encontrado!');
-        return;
-      }
-
-      const venuesSubmitButton = venuesForm.querySelector('button[type="submit"]');
-
-      if (!venuesFormMessage) {
-        console.error('Elemento de mensagem (venues) não encontrado!');
-        return;
-      }
-
-      function showVenuesMessage(text, type) {
-        if (venuesFormMessage) {
-          venuesFormMessage.textContent = text;
-          venuesFormMessage.className = `form-message ${type}`;
-          venuesFormMessage.style.display = 'flex';
-
-          if (type === 'success') {
-            venuesFormMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        }
-      }
-
-      function hideVenuesMessage() {
-        if (venuesFormMessage) {
-          venuesFormMessage.style.display = 'none';
-        }
-      }
-
-      function setVenuesLoading(loading) {
-        if (venuesSubmitButton) {
-          if (loading) {
-            venuesSubmitButton.disabled = true;
-            venuesSubmitButton.classList.add('loading');
-            venuesSubmitButton.textContent = 'Enviando...';
-          } else {
-            venuesSubmitButton.disabled = false;
-            venuesSubmitButton.classList.remove('loading');
-            venuesSubmitButton.textContent = 'Entrar na lista de espera';
-          }
-        }
-      }
-
-      function validateVenuesForm() {
-        const requiredFields = venuesForm.querySelectorAll('[required]');
-        let isValid = true;
-
-        requiredFields.forEach(field => {
-          if (!field.value.trim()) {
-            isValid = false;
-            field.reportValidity();
-          }
-        });
-
-        const consentCheckbox = venuesForm.querySelector('#venue_lgpd_consent');
-        if (consentCheckbox && !consentCheckbox.checked) {
-          isValid = false;
-          consentCheckbox.reportValidity();
-        }
-
-        return isValid;
-      }
-
-      venuesForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        hideVenuesMessage();
-
-        const targetForm = e.target;
-
-        if (!targetForm || targetForm.tagName !== 'FORM') {
-          showVenuesMessage('Erro: Elemento do formulário inválido.', 'error');
-          return;
-        }
-
-        if (!validateVenuesForm()) {
-          return;
-        }
-
-        // Coletar dados do formulário usando os mesmos campos do formulário de bandas
-        const formData = new FormData(targetForm);
-        const data = {
-          tipo: 'venue',
-          band_name: formData.get('band_name'),
-          city: formData.get('city'),
-          instagram: formData.get('instagram'),
-          whatsapp: formData.get('whatsapp'),
-          youtube: formData.get('youtube') || '',
-          styles: formData.get('styles') || '',
-          contact_name: formData.get('contact_name'),
-          email: formData.get('email'),
-          extra: formData.get('extra') || '',
-          lgpd_consent: formData.get('lgpd_consent') ? 'Sim' : 'Não'
-        };
-
-        setVenuesLoading(true);
-        showVenuesMessage('Enviando seus dados...', 'loading');
-
-        try {
-          const formBody = Object.keys(data)
-            .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-            .join('&');
-
-          const response = await fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: formBody
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navDots.forEach(dot => {
+            dot.classList.remove('active');
+            if (dot.getAttribute('href') === '#' + id) {
+              dot.classList.add('active');
+            }
           });
-
-          showVenuesMessage(
-            'Obrigado! Seus dados foram enviados com sucesso. Entraremos em contato em breve.',
-            'success'
-          );
-          targetForm.reset();
-
-          setTimeout(() => {
-            venuesFormMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }, 100);
-
-        } catch (error) {
-          console.error('Erro ao enviar formulário:', error);
-          showVenuesMessage(
-            'Erro ao enviar formulário. Por favor, tente novamente ou entre em contato diretamente em wedson@whysimplicity.com',
-            'error'
-          );
-        } finally {
-          setVenuesLoading(false);
         }
       });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section => {
+      sectionObserver.observe(section);
     });
+
+    // Smooth scroll for nav dots
+    navDots.forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = dot.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Parallax effect for orbs
+    document.addEventListener('mousemove', (e) => {
+      const orbs = document.querySelectorAll('.gradient-orb');
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+      orbs.forEach((orb, index) => {
+        const factor = (index + 1) * 0.5;
+        orb.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+      });
+    });
+
+    // Stagger animation for hero elements on load
+    window.addEventListener('load', () => {
+      const heroElements = document.querySelectorAll('.hero-content > *');
+      heroElements.forEach((el, index) => {
+        el.style.animationDelay = `${index * 0.1}s`;
+      });
+    });
+
+    // Add dynamic delay to feature cards
+    const featureCards = document.querySelectorAll('.feature-card, .problem-card, .user-flow');
+    featureCards.forEach((card, index) => {
+      card.style.transitionDelay = `${index * 0.1}s`;
+    });
+
+    // Keyboard navigation
+    const slideIds = ['hero', 'problem', 'solution', 'how-it-works', 'features', 'roadmap', 'cta'];
+    let currentSlideIndex = 0;
+
+    function getCurrentSlideIndex() {
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      for (let i = 0; i < slideIds.length; i++) {
+        const section = document.getElementById(slideIds[i]);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          const absoluteTop = rect.top + window.scrollY;
+          const absoluteBottom = absoluteTop + rect.height;
+          if (scrollPosition >= absoluteTop && scrollPosition < absoluteBottom) {
+            return i;
+          }
+        }
+      }
+      return 0;
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < slideIds.length) {
+        const targetSection = document.getElementById(slideIds[index]);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+          currentSlideIndex = index;
+        }
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      // Don't trigger if user is focused on an input or textarea
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+        return;
+      }
+
+      currentSlideIndex = getCurrentSlideIndex();
+
+      switch(e.key) {
+        case 'ArrowDown':
+        case 'ArrowRight':
+        case ' ':
+        case 'PageDown':
+          e.preventDefault();
+          goToSlide(currentSlideIndex + 1);
+          break;
+
+        case 'ArrowUp':
+        case 'ArrowLeft':
+        case 'PageUp':
+          e.preventDefault();
+          goToSlide(currentSlideIndex - 1);
+          break;
+
+        case 'Home':
+          e.preventDefault();
+          goToSlide(0);
+          break;
+
+        case 'End':
+          e.preventDefault();
+          goToSlide(slideIds.length - 1);
+          break;
+
+        default:
+          // Number keys 1-8 for direct slide navigation
+          if (e.key >= '1' && e.key <= '7') {
+            e.preventDefault();
+            goToSlide(parseInt(e.key) - 1);
+          }
+      }
+    });
+
+    // Add keyboard hint tooltip
+    const keyboardHint = document.createElement('div');
+    keyboardHint.className = 'keyboard-hint';
+    keyboardHint.innerHTML = `
+      <div class="keyboard-hint-row">
+        <span class="keyboard-hint-key">←</span>
+        <span class="keyboard-hint-key">→</span>
+        <span>ou</span>
+        <span class="keyboard-hint-key">↑</span>
+        <span class="keyboard-hint-key">↓</span>
+      </div>
+    `;
+    document.body.appendChild(keyboardHint);
+
+    // Hide keyboard hint when scrolling, show when idle
+    let hintTimeout;
+    document.addEventListener('scroll', () => {
+      keyboardHint.style.opacity = '0.4';
+      clearTimeout(hintTimeout);
+      hintTimeout = setTimeout(() => {
+        keyboardHint.style.opacity = '1';
+      }, 1500);
+    });
+
+    // Also fade hint on first interaction
+    document.addEventListener('keydown', () => {
+      keyboardHint.style.opacity = '0.6';
+    }, { once: true });
   </script>
 </body>
-
 </html>
